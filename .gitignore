@@ -1,3 +1,6 @@
 # files over 100MB
 data/raw/services-2024.csv
 data/raw/services-2024.csv.gz
+
+# lock files
+*~lock*

@@ -4,8 +4,8 @@
 
 Overall questions to ponder:
 
-> NS has a monopoly on the Dutch rail system:
-> Are they better compared to other operators?
+> NS has a monopoly on the Dutch rail system -
+> are they better compared to other operators?
 > And is Gouda a center of disruption?
 
 ### General dataset
@@ -23,7 +23,7 @@ Overall questions to ponder:
   - _List of top/bottom n route with time_
   - _Map with routes shown (if possible)_
 - Total services by operator
-  - Breakdown into service type
+  - Breakdown into service type (filter)
   - _Table/list, pie charts, bar charts_
 - Frequency of services by time (day, week, month, year)
   - _Line or bar charts_
@@ -54,7 +54,7 @@ Overall questions to ponder:
   - _Table of stations with the most/least service types_
   - _Frequency chart of number of service types_
 
-### Delays and Platform Changes
+### Delays, Platform Changes, and Cancellations
 
 - General delay stats (longest, shortest, average, percentiles, std dev etc)
   - _Big numbers_
@@ -70,6 +70,13 @@ Overall questions to ponder:
 - Where are the most/least platform changes?
   - _Table, map_
 - Platform changes by operator as %age of total services
+  - Also breakdown by service type
+  - _Table, pie charts if appropriate, bar charts_
+- General cancellation stats
+  - _Big numbers_
+- Where are the most/least cancellations?
+  - _Table, map_
+- Cancellations by operator as %age of total services
   - Also breakdown by service type
   - _Table, pie charts if appropriate, bar charts_
 
@@ -91,3 +98,34 @@ Note that the disruptions are only those reported by NS (operator)
   - _Outliers_?
 - Longest shortest/disruptions and where they happened
   - _Table, bar charts, maybe maps_
+
+## ETL
+
+### Extract
+
+- Download and extract `services-2024.csv.gz` if needed
+- Load the three CSVs into dataframes
+
+### Transform
+
+- Remove international data
+  - `services-2024.csv` and `disruptions-2024.csv`: add station country, then
+    remove by country
+  - `stations-2023-09`: remove by `country`
+
+- Data cleaning (handling missing values, correcting data types)
+  - `disruptions-2024.csv` has missing values
+  - `services-2024.csv` has missing values
+  - `stations-2023-09` has names written wrong where there are diacritics
+- Standardisation (consistent formatting)
+  - times in `disruptions-2024.csv` and `services-2024.csv` are in different formats
+  - put stations into their own rows in `disruptions-2024.csv`
+- Enrichment (adding new features or calculated fields)
+  - add station type, long and lat to `disruptions` and `services`
+  - create key based on service number/station ID
+- Aggregation (summarising data)
+- Create new dataframes with data on operators
+
+### Load
+
+- Output to CSV
