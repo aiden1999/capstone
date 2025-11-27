@@ -10,7 +10,7 @@ Overall questions to ponder:
 
 ### General dataset
 
-- Total number of services
+- Total number of services: `Service:RDT-ID`
   - _Big number_
 - Most/least frequent routes
   - _List of top/bottom n routes with frequency number_
