@@ -21,6 +21,7 @@
 - Operators in stations
   - Are there stations with one operator?
   - Are there stations with multiple operators?
+- Which stations are served by slow/fast trains
 
 ### Delays and Platform Changes
 
