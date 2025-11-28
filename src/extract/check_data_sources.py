@@ -23,7 +23,7 @@ def check_file_exists(dir_path: str, file: str) -> bool:
     return os.path.isfile(path)
 
 
-def download_file(url: str, output_path):
+def download_file(url: str, output_path: str):
     print("downloading file")  # TODO: log
     try:
         response = requests.get(url, stream=True)
@@ -38,7 +38,7 @@ def download_file(url: str, output_path):
         raise Exception(f"Error: {e}")
 
 
-def extract_file(input_path, output_path):
+def extract_file(input_path: str, output_path: str):
     print("extracting file")  # TODO: log
     try:
         with gzip.open(input_path, "rb") as file_in:
