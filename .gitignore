@@ -5,6 +5,10 @@ data/raw/services-2024.csv.gz
 # lock files
 *~lock*
 
+# test files
+data/test/sample-1.gz
+data/test/sample-1
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

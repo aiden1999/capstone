@@ -23,10 +23,11 @@ def check_file_exists(dir_path: str, file: str) -> bool:
     return os.path.isfile(path)
 
 
-def download_file(url, output_path):
+def download_file(url: str, output_path):
     print("downloading file")  # TODO: log
     try:
         response = requests.get(url, stream=True)
+        print(response.status_code)  # TEST: also change to log
         response.raise_for_status()
         chunk_size = 1024 * 1024  # 1 MB chunk size
         with open(output_path, "wb") as file:
@@ -34,7 +35,7 @@ def download_file(url, output_path):
                 file.write(chunk)
         # TODO: log file downloaded
     except Exception as e:
-        print(f"Error: {e}")
+        raise Exception(f"Error: {e}")
 
 
 def extract_file(input_path, output_path):
@@ -45,4 +46,4 @@ def extract_file(input_path, output_path):
                 shutil.copyfileobj(file_in, file_out)
         # TODO: log file extracted
     except Exception as e:
-        print(f"Error: {e}")
+        raise Exception(f"Error: {e}")
