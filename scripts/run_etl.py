@@ -8,6 +8,9 @@ def main():
         logger.info("Starting ETL pipeline")
         logger.info("Starting extraction phase")
         extracted_data = extract_data()
+        logger.info("Completed extraction phase")
+        logger.info("Starting transform stage")
+
     except Exception as e:
         logger.error(f"ETL pipeline failed: {e}")
 
