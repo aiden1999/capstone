@@ -1,5 +1,6 @@
 from src.extract.extract import extract_data
 from src.logger import setup_logger
+from src.transform.transform import transform_data
 
 
 def main():
@@ -10,6 +11,7 @@ def main():
         extracted_data = extract_data()
         logger.info("Completed extraction phase")
         logger.info("Starting transform stage")
+        transform_data(extracted_data)
 
     except Exception as e:
         logger.error(f"ETL pipeline failed: {e}")
