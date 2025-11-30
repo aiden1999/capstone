@@ -33,18 +33,18 @@ def transform_data(extracted_data: list[pd.DataFrame]):
     logger.info("Removing international data from services")
     domestic_services = remove_international_data(services_merged)
     logger.info("Merging disruptions with services")
-    disruptions_services = merge_disruptions_with_services(
+    disruptions_df = merge_disruptions_with_services(
         domestic_disruptions, domestic_services
     )
     logger.info("Creating dataframe copies")
     general_df = make_df_copy(domestic_services)
     stations_df = make_df_copy(domestic_services)
     dpcc_df = make_df_copy(domestic_services)
-    disruptions_df = make_df_copy(disruptions_services)
     logger.info("Dropping columns")
     general_df = drop_columns(general_df, GENERAL_COLUMNS)
     stations_df = drop_columns(stations_df, STATIONS_COLUMNS)
     dpcc_df = drop_columns(dpcc_df, DPCC_COLUMNS)
+    print(disruptions_df)
     # TODO: drop_columns for disruptions
 
 
