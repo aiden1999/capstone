@@ -1,7 +1,7 @@
 import pandas as pd
 
 from src.logger import setup_logger
-from src.transform.utils import explode_row, merge_dataframes
+from src.transform.utils import explode_row, make_df_copy, merge_dataframes
 
 logger = setup_logger("transform", "transform.log")
 
@@ -20,6 +20,11 @@ def transform_data(extracted_data: list[pd.DataFrame]):
     domestic_disruptions = remove_international_data(disruptions_merged)
     logger.info("Removing international data from services")
     domestic_services = remove_international_data(services_merged)
+    logger.info("Creating dataframe copies")
+    general_df = make_df_copy(domestic_services)
+    stations_df = make_df_copy(domestic_services)
+    dpcc_df = make_df_copy(domestic_services)
+    # TODO: make_df_copy for disruptions
 
 
 def remove_international_data(df: pd.DataFrame) -> pd.DataFrame:
