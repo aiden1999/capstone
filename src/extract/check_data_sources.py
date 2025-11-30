@@ -4,11 +4,9 @@ import shutil
 
 import requests
 
+from src.constants import SERVICES_GZIP_URL
 from src.logger import setup_logger
 
-SERVICES_GZIP_URL = (
-    "https://opendata.rijdendetreinen.nl/public/services/services-2024.csv.gz"
-)
 
 logger = setup_logger(__name__, "extract.log")
 

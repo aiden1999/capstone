@@ -1,14 +1,15 @@
 import pandas as pd
 
+from src.constants import (
+    DISRUPTIONS_RAW_FILE,
+    RAW_DATA_FILE_PATH,
+    SERVICES_GZIP_FILE,
+    SERVICES_RAW_FILE,
+    STATIONS_RAW_FILE,
+)
 from src.extract.check_data_sources import check_data_sources
 from src.extract.load_to_dataframe import load_to_dataframe
 from src.logger import setup_logger
-
-RAW_DATA_FILE_PATH = "data/raw"
-DISRUPTIONS_RAW_FILE = "disruptions-2024.csv"
-STATIONS_RAW_FILE = "stations-2023-09.csv"
-SERVICES_GZIP_FILE = "services-2024.csv.gz"
-SERVICES_RAW_FILE = "services-2024.csv"
 
 logger = setup_logger("extract", "extract.log")
 
