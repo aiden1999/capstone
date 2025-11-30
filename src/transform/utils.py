@@ -30,3 +30,8 @@ def merge_dataframes(
     except Exception as e:
         logger.error(f"Merge failed: {e}")
         raise
+
+
+def make_df_copy(df: pd.DataFrame) -> pd.DataFrame:
+    copied_df = df.copy()
+    return copied_df
