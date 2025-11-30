@@ -53,7 +53,7 @@ Columns: `Service:RTD-ID`, `Stop:Station code`, `Stop:Station name`, `geo_lat`,
 ### Stations
 
 Columns: `code`, `Stop:Station name`, `Service:RTD-ID`, `geo_lat`, `geo_lng`,
-`name_long`, `type`, `Service:Company`, `Service:Type`
+`type`, `Service:Company`, `Service:Type`
 
 - Total number of stations: `code`
   - _Big number_
