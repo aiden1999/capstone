@@ -35,3 +35,13 @@ def merge_dataframes(
 def make_df_copy(df: pd.DataFrame) -> pd.DataFrame:
     copied_df = df.copy()
     return copied_df
+
+
+def drop_columns(df: pd.DataFrame, keep_columns: list[str]):
+    logger.info(f"Dropping columns from {df.__name__}")
+    try:
+        df[df.columns.intersection(keep_columns)]
+        logger.info("Dropped columns successfully")
+    except Exception as e:
+        logger.error(f"Drop columns failed: {e}")
+        raise

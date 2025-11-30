@@ -1,8 +1,18 @@
 import pandas as pd
 
-from src.constants import INTERNATIONAL_COUNTRIES
+from src.constants import (
+    DPCC_COLUMNS,
+    GENERAL_COLUMNS,
+    INTERNATIONAL_COUNTRIES,
+    STATIONS_COLUMNS,
+)
 from src.logger import setup_logger
-from src.transform.utils import explode_row, make_df_copy, merge_dataframes
+from src.transform.utils import (
+    drop_columns,
+    explode_row,
+    make_df_copy,
+    merge_dataframes,
+)
 
 logger = setup_logger("transform", "transform.log")
 
@@ -26,6 +36,11 @@ def transform_data(extracted_data: list[pd.DataFrame]):
     stations_df = make_df_copy(domestic_services)
     dpcc_df = make_df_copy(domestic_services)
     # TODO: make_df_copy for disruptions
+    logger.info("Dropping columns")
+    drop_columns(general_df, GENERAL_COLUMNS)
+    drop_columns(stations_df, STATIONS_COLUMNS)
+    drop_columns(dpcc_df, DPCC_COLUMNS)
+    # TODO: drop_columns for disruptions
 
 
 def remove_international_data(df: pd.DataFrame) -> pd.DataFrame:
