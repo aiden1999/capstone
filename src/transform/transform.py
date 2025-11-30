@@ -37,9 +37,9 @@ def transform_data(extracted_data: list[pd.DataFrame]):
     dpcc_df = make_df_copy(domestic_services)
     # TODO: make_df_copy for disruptions
     logger.info("Dropping columns")
-    drop_columns(general_df, GENERAL_COLUMNS)
-    drop_columns(stations_df, STATIONS_COLUMNS)
-    drop_columns(dpcc_df, DPCC_COLUMNS)
+    general_df = drop_columns(general_df, GENERAL_COLUMNS)
+    stations_df = drop_columns(stations_df, STATIONS_COLUMNS)
+    dpcc_df = drop_columns(dpcc_df, DPCC_COLUMNS)
     # TODO: drop_columns for disruptions
 
 

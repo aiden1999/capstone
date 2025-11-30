@@ -37,11 +37,8 @@ def make_df_copy(df: pd.DataFrame) -> pd.DataFrame:
     return copied_df
 
 
-def drop_columns(df: pd.DataFrame, keep_columns: list[str]):
-    logger.info(f"Dropping columns from {df.__name__}")
-    try:
-        df[df.columns.intersection(keep_columns)]
-        logger.info("Dropped columns successfully")
-    except Exception as e:
-        logger.error(f"Drop columns failed: {e}")
-        raise
+def drop_columns(df: pd.DataFrame, keep_columns: list[str]) -> pd.DataFrame:
+    logger.info("Dropping columns")
+    new_df = df[df.columns.intersection(keep_columns)]
+    logger.info("Dropped columns successfully")
+    return new_df
