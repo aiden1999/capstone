@@ -70,3 +70,4 @@ DISRUPTIONS_COLUMNS = [
     "Stop:Departure time",
     "Service:Company",
 ]
+OUTPUT_PATH = "data/output"

@@ -8,6 +8,7 @@ data/raw/services-2024.csv.gz
 # test files
 data/test/sample-1.gz
 data/test/sample-1
+data/test/01.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
