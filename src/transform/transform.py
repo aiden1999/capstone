@@ -7,7 +7,7 @@ from src.constants import (
     STATIONS_COLUMNS,
 )
 from src.logger import setup_logger
-from src.transform.general import transform_general
+from src.transform.general.transform_general import transform_general
 from src.transform.utils import (
     drop_columns,
     explode_row,
@@ -33,14 +33,14 @@ def transform_data(extracted_data: list[pd.DataFrame]) -> list[list[pd.DataFrame
     logger.info("Removing international data from services")
     domestic_services = remove_international_data(services_merged)
     logger.info("Creating dataframe copies")
-    general_df = make_df_copy(domestic_services)
-    stations_df = make_df_copy(domestic_services)
-    dpcc_df = make_df_copy(domestic_services)
+    # general_df = make_df_copy(domestic_services)
+    # stations_df = make_df_copy(domestic_services)
+    # dpcc_df = make_df_copy(domestic_services)
     # TODO: make_df_copy for disruptions
     logger.info("Dropping columns")
-    general_df = drop_columns(general_df, GENERAL_COLUMNS)
-    stations_df = drop_columns(stations_df, STATIONS_COLUMNS)
-    dpcc_df = drop_columns(dpcc_df, DPCC_COLUMNS)
+    general_df = drop_columns(domestic_services, GENERAL_COLUMNS)
+    # stations_df = drop_columns(stations_df, STATIONS_COLUMNS)
+    # dpcc_df = drop_columns(dpcc_df, DPCC_COLUMNS)
     # TODO: drop_columns for disruptions
     general_dfs = transform_general(general_df)
     return [general_dfs]
