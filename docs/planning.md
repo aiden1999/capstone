@@ -22,7 +22,7 @@ Overall questions to ponder:
 
 ### General dataset
 
-Columns: `Service:RTD-ID`, `Stop:Station code`, `Stop:Station name`, `geo_lat`,
+Columns: `Service:RDT-ID`, `Stop:Station code`, `Stop:Station name`, `geo_lat`,
 `geo_lng`, `Stop:Arrival time`, `Stop:Arrival delay`, `Stop:Departure time`,
 `Stop:Departure delay`, `Service:Type`, `Service:Company`
 
@@ -32,11 +32,11 @@ Columns: `Service:RTD-ID`, `Stop:Station code`, `Stop:Station name`, `geo_lat`,
   `Stop:Station name`, `geo_lat`, `geo_lng`
   - _List of top/bottom n routes with frequency number_
   - _Map with routes shown (unsure if possible)_
-- `03` Routes with the most/least stops: `Service:RTD-ID`, `Stop:Station code`,
+- `03` Routes with the most/least stops: `Service:RDT-ID`, `Stop:Station code`,
   `Stop:Station name`, `geo_lat`, `geo_lng`
   - _List of top/bottom n routes with stops listed, and total number_
   - _Map with routes shown (if possible)_
-- `04` Longest/shortest service (s): `Service:RTD-ID`, `Stop:Station code`,
+- `04` Longest/shortest service (s): `Service:RDT-ID`, `Stop:Station code`,
   `Stop:Station name`, `geo_lat`, `geo_lng`, `Stop:Arrival time`,
   `Stop:Departure time`, `Stop:Arrival delay`, `Stop:Departure delay`,
   `geo_lat`, `geo_lng`
@@ -52,7 +52,7 @@ Columns: `Service:RTD-ID`, `Stop:Station code`, `Stop:Station name`, `geo_lat`,
 
 ### Stations
 
-Columns: `code`, `Stop:Station name`, `Service:RTD-ID`, `geo_lat`, `geo_lng`,
+Columns: `code`, `Stop:Station name`, `Service:RDT-ID`, `geo_lat`, `geo_lng`,
 `type`, `Service:Company`, `Service:Type`
 
 - `07` Total number of stations: `code`
@@ -71,7 +71,8 @@ Columns: `code`, `Stop:Station name`, `Service:RTD-ID`, `geo_lat`, `geo_lng`,
   - _Table with data_
   - _Outliers?_
   - _Written explanation of station categories_
-- `11` Operators in stations: `Service:Company`, `Stop:Station name`, `geo_lat`, `geo_lng`
+- `11` Operators in stations: `Service:Company`, `Stop:Station name`, `geo_lat`,
+  `geo_lng`
   - Are there stations with one operator?
   - Are there stations with multiple operators?
   - _Operators and the number of stations they serve_
@@ -85,42 +86,43 @@ Columns: `code`, `Stop:Station name`, `Service:RTD-ID`, `geo_lat`, `geo_lng`,
 
 ### Delays, Platform Changes, and Cancellations
 
-Columns: `Service:RTD-ID`, `Service:Maximum delay`, `Stop:Station name`,
+Columns: `Service:RDT-ID`, `Service:Maximum delay`, `Stop:Station name`,
 `Stop:Arrival delay`, `Stop:Departure delay`, `geo_lat`, `geo_lng`,
 `Service:Company`, `Service:Type`, `Stop:Platform change`,
 `Service:Completely cancelled`, `Service:Partly cancelled`
 
 - `13` General delay stats (longest, shortest, average, percentiles, std dev etc):
-  `Service:RTD-ID`, `Service:Maximum delay`
+  `Service:RDT-ID`, `Service:Maximum delay`
   - _Big numbers_
-- `14` Most/least frequent routes/stations as %age of total: `Stop:Station name`, `
-Stop:Arrival delay`, `Stop: Departure delay`, `geo_lat`, `geo_lng`
+- `14` Most/least frequent routes/stations as %age of total:
+  `Stop:Station name`, `Stop:Arrival delay`, `Stop: Departure delay`, `geo_lat`,
+  `geo_lng`
   - _Table_
   - _Map_
 - `15` Delays by operator: Most/least frequent as %age of total services:
-  `Service:RTD-ID`, `Service:Company`, `Service:Maximum delay`, `Service:Type`
+  `Service:RDT-ID`, `Service:Company`, `Service:Maximum delay`, `Service:Type`
   - _Table, pie charts if appropriate, bar charts_
-- `16` How many platform changes as %age of total services: `Service:RTD-ID`,
+- `16` How many platform changes as %age of total services: `Service:RDT-ID`,
   `Stop:Platform change`
   - _Big number_
 - `17` Average platform changes per service - take into account number of stops:
-  `Service:RTD-ID`, `Stop:Platform change`
+  `Service:RDT-ID`, `Stop:Platform change`
   - _Big number, %age?_
 - `18` Where are the most/least platform changes? `Stop:Station name`,
   `Stop:Platform change`, `geo_lat`, `geo_lng`
   - _Table, map_
 - `19` Platform changes by operator as %age of total services: `Service:Company`,
-  `Service:Type`, `Stop:Platform change`, `Service:RTD-ID`
+  `Service:Type`, `Stop:Platform change`, `Service:RDT-ID`
   - Also breakdown by service type
   - _Table, pie charts if appropriate, bar charts_
-- `20` General cancellation stats: `Service:RTD-ID`, `Service:Completely cancelled`,
+- `20` General cancellation stats: `Service:RDT-ID`, `Service:Completely cancelled`,
   `Service:Partly cancelled`
   - _Big numbers_
 - `21` Where are the most/least cancellations? `Stop:Station name`,
   `Stop:Arrival cancelled`, `Stop;Departure cancelled`, `geo_lat`, `geo_lng`
   - _Table, map_
 - `22` Cancellations by operator as %age of total services:
-  `Service:RTD-ID`, `Service:Company`, `Service:Type`,
+  `Service:RDT-ID`, `Service:Company`, `Service:Type`,
   `Service:Completely cancelled`, `Service:Partly cancelled`
   - Also breakdown by service type
   - _Table, pie charts if appropriate, bar charts_
@@ -131,11 +133,11 @@ Note that the disruptions are only those reported by NS (operator)
 
 Columns: `rdt_id`, `rdt_station_codes`, `start_time`, `end_time`,
 `statistical_cause_en`, `cause_group`, `duration_minutes`, `geo_lat`, `geo_lng`,
-`Service:RTD-ID`, `Stop:Station code`, `Stop:Arrival time`,
+`Service:RDT-ID`, `Stop:Station code`, `Stop:Arrival time`,
 `Stop:Departure time`, `Service:Company`
 
 - `23` Disruptions as a %age of services: `rdt_id`, `rdt_station_codes`,
-  `start_time`, `end_time`, `Service:RTD-ID`, `Stop:Station code`,
+  `start_time`, `end_time`, `Service:RDT-ID`, `Stop:Station code`,
   `Stop:Arrival time`, `Stop:Departure time`, `Service:Company`
   - Will need to add a column indicating if there was a disruption (bool) and `rdt_id`
   - _Big number_
@@ -144,15 +146,15 @@ Columns: `rdt_id`, `rdt_station_codes`, `start_time`, `end_time`,
 - `25` Where they most/least often occur (routes/stations): `rdt_station_codes`,
   `geo_lat`, `geo_lng`
   - _Table and maps_
-- `26` Most/least frequent causes by group and cause: `rtd_id`,
+- `26` Most/least frequent causes by group and cause: `rdt_id`,
   `statistical_cause_en`, `cause_group`
   - _Tables and bar charts, breakdown for each_
-- `26` Relationship between reasons and length of disruptions: `rtd_id`,
+- `26` Relationship between reasons and length of disruptions: `rdt_id`,
   `statistical_cause_en`, `cause_group`, `duration_minutes`
   - _Mean, std dev, min, max, quartiles for each reason_
   - _Scatter with range bars_
   - _Outliers_?
-- `27` Longest shortest/disruptions and where they happened: `rtd_id`,
+- `27` Longest shortest/disruptions and where they happened: `rdt_id`,
   `duration_minutes`, `rdt_station_codes`, `geo_lat`, `geo_lng`
   - _Table, bar charts, maybe maps_
 

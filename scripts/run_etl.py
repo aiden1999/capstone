@@ -11,7 +11,8 @@ def main():
         extracted_data = extract_data()
         logger.info("Completed extraction phase")
         logger.info("Starting transform stage")
-        transform_data(extracted_data)
+        transformed_data = transform_data(extracted_data)
+        logger.info("Completed transform stage")
 
     except Exception as e:
         logger.error(f"ETL pipeline failed: {e}")

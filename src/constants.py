@@ -18,7 +18,7 @@ INTERNATIONAL_COUNTRIES = [
     "S",  # Sweden
 ]
 GENERAL_COLUMNS = [
-    "Service:RTD-ID",
+    "Service:RDT-ID",
     "Stop:Station code",
     "Stop:Station name",
     "geo_lat",
@@ -33,7 +33,7 @@ GENERAL_COLUMNS = [
 STATIONS_COLUMNS = [
     "code",
     "Stop:Station name",
-    "Service:RTD-ID",
+    "Service:RDT-ID",
     "geo_lat",
     "geo_lng",
     "type",
@@ -41,7 +41,7 @@ STATIONS_COLUMNS = [
     "Service:Type",
 ]
 DPCC_COLUMNS = [
-    "Service:RTD-ID",
+    "Service:RDT-ID",
     "Service:Maximum delay",
     "Stop:Station name",
     "Stop:Arrival delay",
@@ -55,8 +55,8 @@ DPCC_COLUMNS = [
     "Service:Partly cancelled",
 ]
 DISRUPTIONS_COLUMNS = [
-    "rtd_id",
-    "rtd_station_codes",
+    "rdt_id",
+    "rdt_station_codes",
     "start_time",
     "end_time",
     "statistical_cause_en",
@@ -64,7 +64,7 @@ DISRUPTIONS_COLUMNS = [
     "duration_minutes",
     "geo_lat",
     "geo_lng",
-    "Service:RTD-ID",
+    "Service:RDT-ID",
     "Stop:Station code",
     "Stop:Arrival time",
     "Stop:Departure time",
