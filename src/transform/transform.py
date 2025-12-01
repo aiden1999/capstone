@@ -7,6 +7,7 @@ from src.constants import (
     STATIONS_COLUMNS,
 )
 from src.logger import setup_logger
+from src.transform.general import transform_general
 from src.transform.utils import (
     drop_columns,
     explode_row,
@@ -17,7 +18,7 @@ from src.transform.utils import (
 logger = setup_logger("transform", "transform.log")
 
 
-def transform_data(extracted_data: list[pd.DataFrame]):
+def transform_data(extracted_data: list[pd.DataFrame]) -> list[list[pd.DataFrame]]:
     logger.info("Starting data transformation")
     disruptions_raw, stations_raw, services_raw = extracted_data
     disruptions_exploded = explode_row(disruptions_raw, "rdt_station_codes")
@@ -41,6 +42,8 @@ def transform_data(extracted_data: list[pd.DataFrame]):
     stations_df = drop_columns(stations_df, STATIONS_COLUMNS)
     dpcc_df = drop_columns(dpcc_df, DPCC_COLUMNS)
     # TODO: drop_columns for disruptions
+    general_dfs = transform_general(general_df)
+    return [general_dfs]
 
 
 def remove_international_data(df: pd.DataFrame) -> pd.DataFrame:
