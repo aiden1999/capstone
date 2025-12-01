@@ -6,8 +6,7 @@ from src.logger import setup_logger
 logger = setup_logger("load", "load.log")
 
 
-def load_data(dfs: list[list[pd.DataFrame]]):
-    dir_path = "data/output"
+def load_data(dfs: list[list[pd.DataFrame]], dir_path):
     count = 1
     try:
         logger.info("Starting data loading")

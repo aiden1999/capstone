@@ -1,3 +1,4 @@
+from src.constants import OUTPUT_PATH
 from src.extract.extract import extract_data
 from src.load.load import load_data
 from src.logger import setup_logger
@@ -15,7 +16,7 @@ def main():
         transformed_data = transform_data(extracted_data)
         logger.info("Completed transform phase")
         logger.info("Starting load phase")
-        load_data(transformed_data)
+        load_data(transformed_data, OUTPUT_PATH)
         logger.info("Completed load phase")
         logger.info("ETL pipeline completed sucessfully")
     except Exception as e:
