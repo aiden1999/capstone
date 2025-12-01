@@ -10,6 +10,9 @@ data/test/sample-1.gz
 data/test/sample-1
 data/test/01.csv
 
+# output files
+data/output/*.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
