@@ -24,6 +24,7 @@ def transform_02(df: pd.DataFrame) -> pd.DataFrame:
     count_services(df_merged_rows)
     df_merged_rows.drop(columns=["Service:RDT-ID"], inplace=True)
     transformed_df = df_merged_rows.drop_duplicates()
+    transformed_df.dropna(axis="index", inplace=True)
     transformed_df.reset_index(inplace=True, drop=True)
     logger.info("Successfully transformed for 02")
     return transformed_df
