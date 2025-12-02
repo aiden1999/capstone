@@ -2,8 +2,9 @@
 
 ## Usage
 
-### Prerequsites
+### Prerequisites
 
+- At least 16 GB of RAM to spare
 - `python` 3.13.7. Other versions may work
 
 ## Data Sources
