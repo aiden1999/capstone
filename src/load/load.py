@@ -16,6 +16,7 @@ def load_data(dfs: list[list[pd.DataFrame]], dir_path):
                 file_name += ".csv"
                 file_path = os.path.join(dir_path, file_name)
                 df.to_csv(file_path, index=False)
+                count += 1
         logger.info("Finished data loading")
     except Exception as e:
         logger.error(f"Loading failed: {e}")
