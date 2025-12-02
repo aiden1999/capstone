@@ -9,7 +9,7 @@ from src.constants import (
 from src.logger import setup_logger
 from src.transform.general.transform_general import transform_general
 from src.transform.utils import (
-    drop_columns,
+    keep_columns,
     explode_row,
     make_df_copy,
     merge_dataframes,
@@ -38,7 +38,7 @@ def transform_data(extracted_data: list[pd.DataFrame]) -> list[list[pd.DataFrame
     # dpcc_df = make_df_copy(domestic_services)
     # TODO: make_df_copy for disruptions
     logger.info("Dropping columns")
-    general_df = drop_columns(domestic_services, GENERAL_COLUMNS)
+    general_df = keep_columns(domestic_services, GENERAL_COLUMNS)
     # stations_df = drop_columns(stations_df, STATIONS_COLUMNS)
     # dpcc_df = drop_columns(dpcc_df, DPCC_COLUMNS)
     # TODO: drop_columns for disruptions

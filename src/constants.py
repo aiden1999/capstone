@@ -70,4 +70,15 @@ DISRUPTIONS_COLUMNS = [
     "Stop:Departure time",
     "Service:Company",
 ]
+VIS_02_COLUMNS = [
+    "start_station",
+    "start_lat",
+    "start_lng",
+    "end_station",
+    "end_lat",
+    "end_lng",
+    "Service:RDT-ID",
+    "Service:Company",
+    "Service:Type",
+]
 OUTPUT_PATH = "data/output"

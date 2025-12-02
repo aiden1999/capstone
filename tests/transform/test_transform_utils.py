@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from src.transform.utils import drop_columns, explode_row, merge_dataframes
+from src.transform.utils import keep_columns, explode_row, merge_dataframes
 
 test_df = pd.DataFrame(
     {"id": [1, 2], "name": ["Alice", "Bob"], "pets": ["dog,cat", "fish,rabbit"]}
@@ -53,11 +53,11 @@ def test_merge_dataframes_returns_exception():
         merge_dataframes(test_df_1, test_df_2, join_column, join_column)
 
 
-def test_drop_columns_works():
+def test_keep_columns_works():
     test_df = pd.DataFrame(
         {"id": [1, 2], "name": ["Alice", "Bob"], "pets": ["dog,cat", "fish,rabbit"]}
     )
     columns = ["id", "name"]
     expected_df = pd.DataFrame({"id": [1, 2], "name": ["Alice", "Bob"]})
-    test_df = drop_columns(test_df, columns)
+    test_df = keep_columns(test_df, columns)
     pd.testing.assert_frame_equal(test_df, expected_df)
