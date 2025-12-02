@@ -28,8 +28,8 @@ Columns: `Service:RDT-ID`, `Stop:Station code`, `Stop:Station name`, `geo_lat`,
 
 - `01` Total number of services: `Service:RDT-ID`
   - _Big number_
-- `02` Most/least frequent routes: `Service:RDT-ID`, `Stop:Station code`,
-  `Stop:Station name`, `geo_lat`, `geo_lng`
+- `02` Most/least frequent routes: `Service:RDT-ID`, `Service:Type`,
+  `Service:Company`, `Stop:Station code`, `Stop:Station name`, `geo_lat`, `geo_lng`
   - _List of top/bottom n routes with frequency number_
   - _Map with routes shown (unsure if possible)_
 - `03` Routes with the most/least stops: `Service:RDT-ID`, `Stop:Station code`,
