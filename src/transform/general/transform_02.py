@@ -2,7 +2,7 @@ import pandas as pd
 
 from src.constants import VIS_02_COLUMNS
 from src.logger import setup_logger
-from src.transform.utils import keep_columns
+from src.transform.utils import count_services, keep_columns
 
 logger = setup_logger(__name__, "transform.log")
 
@@ -71,15 +71,4 @@ def merge_rows(df: pd.DataFrame) -> pd.DataFrame:
         return merged_df
     except Exception as e:
         logger.error(f"Merge rows failed: {e}")
-        raise
-
-
-def count_services(df: pd.DataFrame, group_by_cols: list[str]):
-    logger.info("Counting services")
-    try:
-        df["route_count"] = df.groupby(group_by_cols).transform("size")
-        df["route_count"] = df["route_count"].fillna(1).astype("int")
-        logger.info("Successfully counted services")
-    except Exception as e:
-        logger.error(f"Count services failed: {e}")
         raise

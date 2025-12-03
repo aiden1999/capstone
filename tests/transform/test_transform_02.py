@@ -2,7 +2,6 @@ import pandas as pd
 import pytest
 
 from src.transform.general.transform_02 import (
-    count_services,
     create_columns,
     keep_start_and_end_stations,
     merge_rows,
@@ -102,39 +101,3 @@ def test_merge_rows_returns_exception():
     )
     with pytest.raises(Exception):
         merge_rows(test_df)
-
-
-def test_count_services_works():
-    test_df = pd.DataFrame(
-        {
-            "Service:Type": ["x", "x"],
-            "Service:Company": ["y", "y"],
-            "start_station": ["A", "A"],
-            "end_station": ["B", "B"],
-        }
-    )
-    test_col_list = ["Service:Type", "Service:Company", "start_station", "end_station"]
-    expected_df = pd.DataFrame(
-        {
-            "Service:Type": ["x", "x"],
-            "Service:Company": ["y", "y"],
-            "start_station": ["A", "A"],
-            "end_station": ["B", "B"],
-            "route_count": [2, 2],
-        }
-    )
-    count_services(test_df, test_col_list)
-    pd.testing.assert_frame_equal(expected_df, test_df)
-
-
-def test_count_services_returns_exception():
-    test_df = pd.DataFrame(
-        {
-            "Service:Type": ["x", "x"],
-            "start_station": ["A", "A"],
-            "end_station": ["B", "B"],
-        }
-    )
-    test_col_list = ["start"]
-    with pytest.raises(Exception):
-        count_services(test_df, test_col_list)

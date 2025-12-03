@@ -1,8 +1,7 @@
 import pandas as pd
 
 from src.logger import setup_logger
-from src.transform.general.transform_02 import count_services
-from src.transform.utils import keep_columns
+from src.transform.utils import count_services, keep_columns
 
 logger = setup_logger(__name__, "transform.log")
 
