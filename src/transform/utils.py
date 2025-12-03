@@ -42,3 +42,14 @@ def keep_columns(df: pd.DataFrame, keep_columns: list[str]) -> pd.DataFrame:
     new_df = df[df.columns.intersection(keep_columns)]
     logger.info("Dropped columns successfully")
     return new_df
+
+
+def count_services(df: pd.DataFrame, group_by_cols: list[str]):
+    logger.info("Counting services")
+    try:
+        df["route_count"] = df.groupby(group_by_cols).transform("size")
+        df["route_count"] = df["route_count"].fillna(1).astype("int")
+        logger.info("Successfully counted services")
+    except Exception as e:
+        logger.error(f"Count services failed: {e}")
+        raise
