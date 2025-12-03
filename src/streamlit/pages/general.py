@@ -144,3 +144,25 @@ st.markdown("#### Service types by operator")
 chosen_operator = st.pills(
     "Choose an operator", df_05_operators_grouped["Service:Company"], default="NS"
 )
+
+operator_mask = df_05["Service:Company"] == chosen_operator
+df_05_service_type = df_05[operator_mask]
+df_05_service_type.rename({"Service:Type": "service_type"}, axis=1, inplace=True)
+
+st.bar_chart(
+    df_05_service_type,
+    x="service_type",
+    y="route_count",
+    x_label="Service type",
+    y_label="Number of services",
+    color=red,
+)
+
+column_config_05_services = {
+    "service_type": "Service type",
+    "Service:Company": None,
+    "route_count": "Total services",
+}
+st.dataframe(
+    df_05_service_type, hide_index=True, column_config=column_config_05_services
+)
