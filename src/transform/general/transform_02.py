@@ -21,7 +21,8 @@ def transform_02(df: pd.DataFrame) -> pd.DataFrame:
     )
     df_needed_cols = keep_columns(df_with_end, VIS_02_COLUMNS)
     df_merged_rows = merge_rows(df_needed_cols)
-    count_services(df_merged_rows)
+    group_by_cols = ["Service:Type", "Service:Company", "start_station", "end_station"]
+    count_services(df_merged_rows, group_by_cols)
     df_merged_rows.drop(columns=["Service:RDT-ID"], inplace=True)
     transformed_df = df_merged_rows.drop_duplicates()
     transformed_df.dropna(axis="index", inplace=True)
@@ -73,12 +74,10 @@ def merge_rows(df: pd.DataFrame) -> pd.DataFrame:
         raise
 
 
-def count_services(df: pd.DataFrame):
+def count_services(df: pd.DataFrame, group_by_cols: list[str]):
     logger.info("Counting services")
     try:
-        df["route_count"] = df.groupby(
-            ["Service:Type", "Service:Company", "start_station", "end_station"]
-        ).transform("size")
+        df["route_count"] = df.groupby(group_by_cols).transform("size")
         df["route_count"] = df["route_count"].fillna(1).astype("int")
         logger.info("Successfully counted services")
     except Exception as e:
