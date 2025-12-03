@@ -113,6 +113,7 @@ def test_count_services_works():
             "end_station": ["B", "B"],
         }
     )
+    test_col_list = ["Service:Type", "Service:Company", "start_station", "end_station"]
     expected_df = pd.DataFrame(
         {
             "Service:Type": ["x", "x"],
@@ -122,7 +123,7 @@ def test_count_services_works():
             "route_count": [2, 2],
         }
     )
-    count_services(test_df)
+    count_services(test_df, test_col_list)
     pd.testing.assert_frame_equal(expected_df, test_df)
 
 
@@ -134,5 +135,6 @@ def test_count_services_returns_exception():
             "end_station": ["B", "B"],
         }
     )
+    test_col_list = ["start"]
     with pytest.raises(Exception):
-        count_services(test_df)
+        count_services(test_df, test_col_list)
