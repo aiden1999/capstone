@@ -11,6 +11,7 @@ year of 2024._
     - [Download and install](#download-and-install)
     - [Running](#running)
   - [Data Sources](#data-sources)
+  - [Planning Docs](#planning-docs)
   <!--toc:end-->
 
 ## Usage
@@ -82,3 +83,8 @@ run_all
 ## Data Sources
 
 All datasets sourced from [Rijden de Treinen](https://www.rijdendetreinen.nl/en/open-data).
+
+## Planning Docs
+
+- [Original planning doc](/docs/planning.md)
+- [Future plans](/docs/future-plans.md)
