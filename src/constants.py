@@ -1,3 +1,5 @@
+"""Constants for use with the ETL pipeline"""
+
 RAW_DATA_FILE_PATH = "data/raw"
 DISRUPTIONS_RAW_FILE = "disruptions-2024.csv"
 STATIONS_RAW_FILE = "stations-2023-09.csv"
