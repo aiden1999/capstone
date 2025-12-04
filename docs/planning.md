@@ -15,7 +15,7 @@
 
 Overall questions to ponder:
 
-> NS has a monopoly on the Dutch rail system -
+> NS (Nederlandse Spoorwegen/Dutch Railways) has a monopoly on the Dutch rail system -
 > are they better compared to other operators?
 >
 > And is Gouda a center of disruption?
