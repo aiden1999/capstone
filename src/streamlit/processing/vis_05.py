@@ -29,5 +29,7 @@ def get_data_05_operators_other(df: pd.DataFrame) -> pd.DataFrame:
 def get_data_05_service_type(df: pd.DataFrame, chosen_operator) -> pd.DataFrame:
     operator_mask = df["Service:Company"] == chosen_operator
     df_05_service_type = df[operator_mask]
-    df_05_service_type.rename({"Service:Type": "service_type"}, axis=1, inplace=True)
+    df_05_service_type = df_05_service_type.rename(
+        {"Service:Type": "service_type"}, axis=1
+    )
     return df_05_service_type
