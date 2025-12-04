@@ -1,0 +1,17 @@
+[project]
+name = "Capstone"
+version = "0.1.0"
+
+[project.scripts]
+run_all = "scripts.run_all:main"
+run_etl = "scripts.run_etl:main"
+run_streamlit = "scripts.run_streamlit:main"
+run_tests = "scripts.run_tests:main"
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
