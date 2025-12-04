@@ -1,3 +1,5 @@
+"""Transformation for visualisation 02."""
+
 import pandas as pd
 
 from src.constants import VIS_02_COLUMNS
@@ -8,6 +10,14 @@ logger = setup_logger(__name__, "transform.log")
 
 
 def transform_02(df: pd.DataFrame) -> pd.DataFrame:
+    """Transforms data needed for visualisation 02.
+
+    Args:
+        df: DataFrame for general statistics.
+
+    Returns:
+        Transformed DataFrame.
+    """
     logger.info("Transforming for 02")
     df = keep_start_and_end_stations(df)
     old_columns = ["Stop:Station name", "geo_lat", "geo_lng"]
@@ -32,6 +42,17 @@ def transform_02(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def keep_start_and_end_stations(df: pd.DataFrame) -> pd.DataFrame:
+    """Removes records of intermediate stops.
+
+    Intermediate stops have both an arrival time and departure time, so those
+    records are dropped.
+
+    Args:
+        df: DataFrame with the original general statistics data.
+
+    Returns:
+        DataFrame of only start and end stops.
+    """
     logger.info("Removing intermediate stations")
     try:
         start_end_mask = (
@@ -49,6 +70,25 @@ def keep_start_and_end_stations(df: pd.DataFrame) -> pd.DataFrame:
 def create_columns(
     df: pd.DataFrame, old_cols: list[str], new_cols: list[str], cond_col: str
 ) -> pd.DataFrame:
+    """Creates columns with more descriptive names.
+
+    For example, for the rows that have a departure time (start stops), for
+    every new column, the new column is filled with nulls, and the rows with
+    start stops populate the new columns, i.e.:
+    Stop:Station name -> start_station
+    geo_lat -> start_lat
+    geo_lng -> start_lng
+
+    Args:
+        df: DataFrame of start and end stations.
+        old_cols: List of columns that the new columns are getting their data from.
+        new_cols: List of columns to be created.
+        cond_col: Column that is used to indicate whether the station is at the
+            start or the end.
+
+    Returns:
+        DataFrame with new columns.
+    """
     logger.info(f"Creating new columns: {new_cols}")
     try:
         new_df = df.copy()
@@ -64,6 +104,15 @@ def create_columns(
 
 
 def merge_rows(df: pd.DataFrame) -> pd.DataFrame:
+    """Merge rows so that a record has no nulls in start_station, start_lat,
+    start_lng, end_station, end_lat, end_lng.
+
+    Args:
+        df: DataFrame with nulls.
+
+    Returns:
+        Merged DataFrame.
+    """
     logger.info("Merging rows")
     try:
         merged_df = df.groupby("Service:RDT-ID", as_index=False).first()

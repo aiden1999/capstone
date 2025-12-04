@@ -1,3 +1,8 @@
+"""Streamlit page for the general statistics.
+
+The numbers for visualisations reference those listed in docs/planning.md
+"""
+
 import plotly.express as px
 from streamlit_folium import st_folium
 
