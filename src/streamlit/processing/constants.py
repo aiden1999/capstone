@@ -1,3 +1,5 @@
+"""Constants for use with the Streamlit app."""
+
 COLUMN_CONFIG_02 = {
     "Service:Type": "Type",
     "Service:Company": "Operator",
