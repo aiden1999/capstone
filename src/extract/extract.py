@@ -1,3 +1,8 @@
+"""Extraction phase of the ETL process.
+
+Called in run_etl.
+"""
+
 import pandas as pd
 
 from src.constants import (
@@ -15,6 +20,11 @@ logger = setup_logger("extract", "extract.log")
 
 
 def extract_data() -> list[pd.DataFrame]:
+    """Extracts data from CSV files and loads into dataframes.
+
+    Returns:
+        A list of dataframes containing the extracted data.
+    """
     try:
         logger.info("Starting data extraction")
         check_data_sources(RAW_DATA_FILE_PATH, SERVICES_RAW_FILE, SERVICES_GZIP_FILE)
