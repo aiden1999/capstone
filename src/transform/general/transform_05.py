@@ -1,3 +1,5 @@
+"""Transformation for visualisation 05."""
+
 import pandas as pd
 
 from src.logger import setup_logger
@@ -7,6 +9,14 @@ logger = setup_logger(__name__, "transform.log")
 
 
 def transform_05(df: pd.DataFrame) -> pd.DataFrame:
+    """Transforms data needed for visualisation 05.
+
+    Args:
+        df: DataFrame for general statistics.
+
+    Returns:
+        Transformed DataFrame.
+    """
     df_needed_columns = keep_columns(
         df, ["Service:RDT-ID", "Service:Type", "Service:Company"]
     )
