@@ -1,17 +1,17 @@
 import pandas as pd
 
 from src.constants import (
-    DPCC_COLUMNS,
+    # DPCC_COLUMNS,
     GENERAL_COLUMNS,
     INTERNATIONAL_COUNTRIES,
-    STATIONS_COLUMNS,
+    # STATIONS_COLUMNS,
 )
 from src.logger import setup_logger
 from src.transform.general.transform_general import transform_general
 from src.transform.utils import (
     keep_columns,
-    explode_row,
-    make_df_copy,
+    # explode_row,
+    # make_df_copy,
     merge_dataframes,
 )
 
@@ -21,15 +21,15 @@ logger = setup_logger("transform", "transform.log")
 def transform_data(extracted_data: list[pd.DataFrame]) -> list[list[pd.DataFrame]]:
     logger.info("Starting data transformation")
     disruptions_raw, stations_raw, services_raw = extracted_data
-    disruptions_exploded = explode_row(disruptions_raw, "rdt_station_codes")
-    disruptions_merged = merge_dataframes(
-        disruptions_exploded, stations_raw, "rdt_station_codes", "code"
-    )
+    # disruptions_exploded = explode_row(disruptions_raw, "rdt_station_codes")
+    # disruptions_merged = merge_dataframes(
+    #     disruptions_exploded, stations_raw, "rdt_station_codes", "code"
+    # )
     services_merged = merge_dataframes(
         services_raw, stations_raw, "Stop:Station code", "code"
     )
-    logger.info("Removing international data from disruptions")
-    domestic_disruptions = remove_international_data(disruptions_merged)
+    # logger.info("Removing international data from disruptions")
+    # domestic_disruptions = remove_international_data(disruptions_merged)
     logger.info("Removing international data from services")
     domestic_services = remove_international_data(services_merged)
     logger.info("Creating dataframe copies")
