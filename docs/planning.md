@@ -8,7 +8,7 @@
     - [Stations](#stations)
     - [Delays, Platform Changes, and Cancellations](#delays-platform-changes-and-cancellations)
     - [Disruptions](#disruptions)
-  - [ETL](#etl) - [Extract](#extract) - [Transform](#transform) - [Load](#load)
+  - [ETL](#etl)
   <!--toc:end-->
 
 ## Questions to answer
