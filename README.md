@@ -5,7 +5,8 @@
 ### Prerequisites
 
 - At least 16 GB of RAM to spare
-- `python` 3.13.7. Other versions may work
+- `python`: minimum `3.6`
+  - Checked with [Vermin](https://github.com/netromdk/vermin)
 
 ### Running
 
