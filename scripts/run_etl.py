@@ -1,3 +1,5 @@
+"""Script to run the ETL pipeline."""
+
 from src.constants import OUTPUT_PATH
 from src.extract.extract import extract_data
 from src.load.load import load_data
@@ -6,6 +8,7 @@ from src.transform.transform import transform_data
 
 
 def main():
+    """Calls each phase of the ETL pipeline and logs it."""
     logger = setup_logger("etl_pipeline", "etl_pipeline.log")
     try:
         logger.info("Starting ETL pipeline")
