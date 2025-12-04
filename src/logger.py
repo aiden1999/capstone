@@ -1,3 +1,5 @@
+"""Utilities for logging."""
+
 import logging
 import os
 import sys
@@ -7,6 +9,17 @@ from pathlib import Path
 def setup_logger(
     name: str, log_file: str, level: int = logging.DEBUG
 ) -> logging.Logger:
+    """Sets up the logger for use elsewhere.
+
+    Args:
+        name: String representing the name of the logger.
+        log_file: String representing the file for the logger's logs to be
+            recorded.
+        level: Level of logging needed.
+
+    Returns:
+        Logger object.
+    """
     log_directory = ensure_log_directory("logs")
     if log_directory is None:
         log_directory = Path("logs")
