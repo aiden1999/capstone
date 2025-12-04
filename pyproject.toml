@@ -1,6 +1,15 @@
 [project]
 name = "Capstone"
 version = "0.1.0"
+description = "ETL pipeline and Streamlit app exploring Dutch domestic rail services for the year of 2024"
+readme = "README.md"
+requires-python = ">= 3.6"
+license = "Apache-2.0"
+authors = [{ name = "Aiden Tempest", email = "aidentempest99@gmail.com" }]
+dynamic = ["dependencies"]
+
+[project.urls]
+Repository = "https://github.com/aiden99/capstone"
 
 [project.scripts]
 run_all = "scripts.run_all:main"
@@ -15,3 +24,6 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["*"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
