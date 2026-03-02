@@ -24,11 +24,15 @@ year of 2024._
 
 ### Download and install
 
+#### Download
+
 Clone and navigate to directory:
 
 ```bash
 git clone https://github.com/aiden1999/capstone.git && cd capstone
 ```
+
+#### Virtual environment setup
 
 Create a Python virtual environment:
 
@@ -41,6 +45,16 @@ Switch to the virtual environment:
 ```bash
 source .venv/bin/activate
 ```
+
+#### Install (automated)
+
+Give permissions to install script and run
+
+```bash
+chmod +x install.sh && ./install.sh
+```
+
+#### Install (manual)
 
 Install required packages:
 
