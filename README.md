@@ -18,13 +18,11 @@ year of 2024._
 
 ### Prerequisites
 
-- `python`: minimum `3.6`
-  - Checked with [Vermin](https://github.com/netromdk/vermin)
+- `python`
+- `uv`
 - Sufficient RAM (at least 16GB)
 
-### Download and install
-
-#### Download
+### Download
 
 Clone and navigate to directory:
 
@@ -32,66 +30,30 @@ Clone and navigate to directory:
 git clone https://github.com/aiden1999/capstone.git && cd capstone
 ```
 
-#### Virtual environment setup
-
-Create a Python virtual environment:
-
-```bash
-python3 -m venv .venv
-```
-
-Switch to the virtual environment:
-
-```bash
-source .venv/bin/activate
-```
-
-#### Install (automated)
-
-Give permissions to install script and run
-
-```bash
-chmod +x install.sh && ./install.sh
-```
-
-#### Install (manual)
-
-Install required packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-Install scripts:
-
-```bash
-pip install -e .
-```
-
 ### Running
 
 To run linting and tests:
 
 ```bash
-run_tests
+uv run tests
 ```
 
 To run the ETL pipeline:
 
 ```bash
-run_etl
+uv run etl
 ```
 
 To run the Streamlit app:
 
 ```bash
-run_streamlit
+uv run streamlit
 ```
 
 To run everything in one command:
 
 ```bash
-run_all
+uv run all
 ```
 
 ## Data Sources

@@ -3,19 +3,29 @@ name = "Capstone"
 version = "0.1.0"
 description = "ETL pipeline and Streamlit app exploring Dutch domestic rail services for the year of 2024"
 readme = "README.md"
-requires-python = ">= 3.6"
+requires-python = ">=3.11"
 license = "Apache-2.0"
 authors = [{ name = "Aiden Tempest", email = "aidentempest99@gmail.com" }]
-dynamic = ["dependencies"]
+dependencies = [
+    "folium>=0.20.0",
+    "humanize>=4.15.0",
+    "pandas>=2.3.3",
+    "plotly>=6.5.2",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "requests>=2.32.5",
+    "streamlit>=1.54.0",
+    "streamlit-folium>=0.26.2",
+]
 
 [project.urls]
 Repository = "https://github.com/aiden99/capstone"
 
 [project.scripts]
-run_all = "scripts.run_all:main"
-run_etl = "scripts.run_etl:main"
-run_streamlit = "scripts.run_streamlit:main"
-run_tests = "scripts.run_tests:main"
+all = "scripts.run_all:main"
+etl = "scripts.run_etl:main"
+streamlit = "scripts.run_streamlit:main"
+tests = "scripts.run_tests:main"
 
 [build-system]
 requires = ["setuptools>=45", "wheel"]
@@ -24,6 +34,3 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["*"]
-
-[tool.setuptools.dynamic]
-dependencies = { file = ["requirements.txt"] }
