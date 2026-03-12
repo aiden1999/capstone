@@ -1,9 +1,0 @@
-folium
-humanize
-requests
-pandas
-plotly
-pytest
-pytest-cov
-streamlit
-streamlit-folium
