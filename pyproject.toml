@@ -22,18 +22,18 @@ dependencies = [
 Repository = "https://github.com/aiden99/capstone"
 
 [project.scripts]
-run_all = "scripts.run_all:main"
-run_etl = "scripts.run_etl:main"
-run_streamlit = "scripts.run_streamlit:main"
-run_tests = "scripts.run_tests:main"
+all = "scripts.run_all:main"
+etl = "scripts.run_etl:main"
+streamlit = "scripts.run_streamlit:main"
+tests = "scripts.run_tests:main"
 
-# [build-system]
-# requires = ["setuptools>=45", "wheel"]
-# build-backend = "setuptools.build_meta"
-#
-# [tool.setuptools.packages.find]
-# where = ["."]
-# include = ["*"]
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
 #
 # [tool.setuptools.dynamic]
 # dependencies = { file = ["requirements.txt"] }
