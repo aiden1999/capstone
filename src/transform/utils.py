@@ -88,3 +88,23 @@ def count_services(df: pd.DataFrame, group_by_cols: list[str]):
     except Exception as e:
         logger.error(f"Count services failed: {e}")
         raise
+
+
+def implode_rows(df: pd.DataFrame, index_col: str) -> pd.DataFrame:
+    """[TODO:description]
+
+    Args:
+        df: [TODO:description]
+        index_col: [TODO:description]
+
+    Returns:
+        [TODO:return]
+    """
+    logger.info("Imploding rows")
+    try:
+        new_df = df.groupby(index_col, as_index=False).agg(lambda x: x.tolist())
+        logger.info("Imploded rows successfully")
+        return new_df
+    except Exception as e:
+        logger.error(f"Implode rows failed: {e}")
+        raise
