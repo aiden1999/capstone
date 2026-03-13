@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/aiden99/capstone"
+Repository = "https://github.com/aiden1999/capstone"
 
 [project.scripts]
 all = "scripts.run_all:main"
