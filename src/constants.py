@@ -83,4 +83,11 @@ VIS_02_COLUMNS = [
     "Service:Company",
     "Service:Type",
 ]
+VIS_03_COLUMNS = [
+    "Service:RDT-ID",
+    "Stop:Station code",
+    "Stop:Station name",
+    "geo_lat",
+    "geo_lng",
+]
 OUTPUT_PATH = "data/output"
