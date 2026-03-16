@@ -91,14 +91,14 @@ def count_services(df: pd.DataFrame, group_by_cols: list[str]):
 
 
 def implode_rows(df: pd.DataFrame, index_col: str) -> pd.DataFrame:
-    """[TODO:description]
+    """Merges rows based on a shared index.
 
     Args:
-        df: [TODO:description]
-        index_col: [TODO:description]
+        df: Input DataFrame.
+        index_col: Shared index.
 
     Returns:
-        [TODO:return]
+        Transformed DataFrame.
     """
     logger.info("Imploding rows")
     try:

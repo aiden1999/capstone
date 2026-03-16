@@ -10,13 +10,13 @@ logger = setup_logger(__name__, "transform.log")
 
 
 def transform_03(df: pd.DataFrame) -> pd.DataFrame:
-    """[TODO:description]
+    """Transforms data needed for visualisation 03.
 
     Args:
-        df: [TODO:description]
+        df: DataFrame for general statistics.
 
     Returns:
-        [TODO:return]
+        Transformed DataFrame.
     """
     logger.info("Transforming for 03")
     df_needed_cols = keep_columns(df, VIS_03_COLUMNS)
