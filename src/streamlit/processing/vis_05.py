@@ -12,7 +12,7 @@ def get_data_05() -> pd.DataFrame:
     Returns:
         DataFrame with the needed data.
     """
-    df_05 = load_to_dataframe(OUTPUT_PATH, "03.csv")
+    df_05 = load_to_dataframe(OUTPUT_PATH, "04.csv")
     return df_05
 
 

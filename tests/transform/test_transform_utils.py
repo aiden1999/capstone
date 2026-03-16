@@ -4,6 +4,7 @@ import pytest
 from src.transform.utils import (
     count_services,
     explode_row,
+    implode_rows,
     keep_columns,
     merge_dataframes,
 )
@@ -102,3 +103,23 @@ def test_count_services_returns_exception():
     test_col_list = ["start"]
     with pytest.raises(Exception):
         count_services(test_df, test_col_list)
+
+
+def test_implode_rows_works():
+    test_df = pd.DataFrame(
+        {
+            "id_col": [1, 1, 1, 2, 2, 3, 3],
+            "stn_code": ["A", "B", "C", "C", "D", "D", "C"],
+            "stn_name": ["a", "b", "c", "c", "d", "d", "c"],
+        }
+    )
+    test_index_col = "id_col"
+    expected_df = pd.DataFrame(
+        {
+            "id_col": [1, 2, 3],
+            "stn_code": [["A", "B", "C"], ["C", "D"], ["D", "C"]],
+            "stn_name": [["a", "b", "c"], ["c", "d"], ["d", "c"]],
+        }
+    )
+    returned_df = implode_rows(test_df, test_index_col)
+    pd.testing.assert_frame_equal(expected_df, returned_df)
