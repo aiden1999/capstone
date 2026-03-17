@@ -1,5 +1,6 @@
 """Utilities for logging."""
 
+import coloredlogs
 import logging
 import os
 import sys
@@ -31,6 +32,7 @@ def setup_logger(
         file_handler, console_handler = create_handlers(log_directory, log_file, level)
         logger.addHandler(file_handler)
         logger.addHandler(console_handler)
+    coloredlogs.install(level=level, logger=logger, stream=console_handler.stream)
     return logger
 
 
