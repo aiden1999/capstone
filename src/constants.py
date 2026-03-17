@@ -8,6 +8,62 @@ SERVICES_RAW_FILE = "services-2024.csv"
 SERVICES_GZIP_URL = (
     "https://opendata.rijdendetreinen.nl/public/services/services-2024.csv.gz"
 )
+DISRUPTIONS_DTYPES = {
+    "rdt_id": "int32",
+    "rdt_station_codes": "string",
+    "statistical_cause_en": "string",
+    "cause_group": "category",
+    "start_time": "string",
+    "end_time": "string",
+    "duration_minutes": "Int32",
+}
+DISRUPTIONS_USECOLS = [
+    "rdt_id",
+    "rdt_station_codes",
+    "statistical_cause_en",
+    "cause_group",
+    "start_time",
+    "end_time",
+    "duration_minutes",
+]
+STATIONS_DTYPES = {
+    "code": "string",
+    "country": "category",
+    "type": "category",
+    "geo_lat": "float64",
+    "geo_lng": "float64",
+}
+STATIONS_USECOLS = ["code", "country", "type", "geo_lat", "geo_lng"]
+SERVICES_DTYPES = {
+    "Service:RDT-ID": "int32",
+    "Service:Type": "category",
+    "Service:Company": "category",
+    "Service:Completely cancelled": "bool",
+    "Service:Partly cancelled": "bool",
+    "Service:Maximum delay": "int32",
+    "Stop:Station code": "string",
+    "Stop:Station name": "string",
+    "Stop:Arrival time": "string",
+    "Stop:Arrival delay": "Int32",
+    "Stop:Departure time": "string",
+    "Stop:Departure delay": "Int32",
+    "Stop:Platform change": "bool",
+}
+SERVICES_USECOLS = [
+    "Service:RDT-ID",
+    "Service:Type",
+    "Service:Company",
+    "Service:Completely cancelled",
+    "Service:Partly cancelled",
+    "Service:Maximum delay",
+    "Stop:Station code",
+    "Stop:Station name",
+    "Stop:Arrival time",
+    "Stop:Arrival delay",
+    "Stop:Departure time",
+    "Stop:Departure delay",
+    "Stop:Platform change",
+]
 INTERNATIONAL_COUNTRIES = [
     "A",  # Austria
     "B",  # Belgium

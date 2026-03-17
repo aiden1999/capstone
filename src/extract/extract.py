@@ -7,10 +7,13 @@ import pandas as pd
 
 from src.constants import (
     DISRUPTIONS_RAW_FILE,
+    DISRUPTIONS_USECOLS,
     RAW_DATA_FILE_PATH,
     SERVICES_GZIP_FILE,
     SERVICES_RAW_FILE,
+    SERVICES_USECOLS,
     STATIONS_RAW_FILE,
+    STATIONS_USECOLS,
 )
 from src.extract.check_data_sources import check_data_sources
 from src.extract.load_to_dataframe import load_to_dataframe
@@ -29,9 +32,10 @@ def extract_data() -> list[pd.DataFrame]:
         logger.info("Starting data extraction")
         check_data_sources(RAW_DATA_FILE_PATH, SERVICES_RAW_FILE, SERVICES_GZIP_FILE)
         csv_files = [DISRUPTIONS_RAW_FILE, STATIONS_RAW_FILE, SERVICES_RAW_FILE]
+        use_cols = [DISRUPTIONS_USECOLS, STATIONS_USECOLS, SERVICES_USECOLS]
         dataframes = []
-        for file in csv_files:
-            df = load_to_dataframe(RAW_DATA_FILE_PATH, file)
+        for i in range(3):
+            df = load_to_dataframe(RAW_DATA_FILE_PATH, csv_files[i], use_cols[i])
             dataframes.append(df)
         logger.info("Finished data extraction")
         return dataframes
