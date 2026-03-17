@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 license = "Apache-2.0"
 authors = [{ name = "Aiden Tempest", email = "aidentempest99@gmail.com" }]
 dependencies = [
+    "coloredlogs>=15.0.1",
     "folium>=0.20.0",
     "humanize>=4.15.0",
     "pandas>=2.3.3",
