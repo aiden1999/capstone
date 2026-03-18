@@ -1,13 +1,13 @@
 """Utilities for transform."""
 
-import pandas as pd
+import polars as pl
 
 from src.logger import setup_logger
 
 logger = setup_logger(__name__, "transform.log")
 
 
-def explode_row(df: pd.DataFrame, column: str) -> pd.DataFrame:
+def explode_row(df: pl.DataFrame, column: str) -> pl.DataFrame:
     """Explodes a row on a column with comma separated values.
 
     Turns the values in the columns into a list of strings, which are then
@@ -24,8 +24,7 @@ def explode_row(df: pd.DataFrame, column: str) -> pd.DataFrame:
     try:
         df[column] = df[column].str.split(",")
         df_exploded = df.explode(column)
-        df_exploded[column] = df_exploded[column].str.strip()
-        df_exploded = df_exploded.reset_index(drop=True)
+        df_exploded[column] = df_exploded[column].str.strip_chars()
         logger.info("Explode succeeded")
         return df_exploded
     except Exception as e:
@@ -34,8 +33,8 @@ def explode_row(df: pd.DataFrame, column: str) -> pd.DataFrame:
 
 
 def merge_dataframes(
-    df_1: pd.DataFrame, df_2: pd.DataFrame, col_1: str, col_2: str
-) -> pd.DataFrame:
+    df_1: pl.DataFrame, df_2: pl.DataFrame, col_1: str, col_2: str
+) -> pl.DataFrame:
     """Inner merge of two DataFrames.
 
     Args:
@@ -49,7 +48,7 @@ def merge_dataframes(
     """
     logger.info("Merging...")
     try:
-        merged_df = df_1.merge(df_2, left_on=col_1, right_on=col_2)
+        merged_df = df_1.join(df_2, left_on=col_1, right_on=col_2)
         logger.info("Merge succeeded")
         return merged_df
     except Exception as e:
@@ -57,7 +56,7 @@ def merge_dataframes(
         raise
 
 
-def keep_columns(df: pd.DataFrame, keep_columns: list[str]) -> pd.DataFrame:
+def keep_columns(df: pl.DataFrame, keep_columns: list[str]) -> pl.DataFrame:
     """Drops columns that aren't listed to keep.
 
     Args:
@@ -68,12 +67,12 @@ def keep_columns(df: pd.DataFrame, keep_columns: list[str]) -> pd.DataFrame:
         Transformed DataFrame.
     """
     logger.info("Dropping columns")
-    new_df = df[df.columns.intersection(keep_columns)]
+    new_df = df.select([col for col in keep_columns if col in df.columns])
     logger.info("Dropped columns successfully")
     return new_df
 
 
-def count_services(df: pd.DataFrame, group_by_cols: list[str]):
+def count_services(df: pl.DataFrame, group_by_cols: list[str]):
     """Counts the number of services based on the group by.
 
     Args:
@@ -82,15 +81,15 @@ def count_services(df: pd.DataFrame, group_by_cols: list[str]):
     """
     logger.info("Counting services")
     try:
-        df["route_count"] = df.groupby(group_by_cols).transform("size")
-        df["route_count"] = df["route_count"].fillna(1).astype("int")
+        df = df.with_columns(pl.len().over(group_by_cols).alias("route_count"))
+        df = df.with_columns(pl.col("route_count").fill_null(1).cast(pl.Int32))
         logger.info("Successfully counted services")
     except Exception as e:
         logger.error(f"Count services failed: {e}")
         raise
 
 
-def implode_rows(df: pd.DataFrame, index_col: str) -> pd.DataFrame:
+def implode_rows(df: pl.DataFrame, index_col: str) -> pl.DataFrame:
     """Merges rows based on a shared index.
 
     Args:
@@ -102,7 +101,7 @@ def implode_rows(df: pd.DataFrame, index_col: str) -> pd.DataFrame:
     """
     logger.info("Imploding rows")
     try:
-        new_df = df.groupby(index_col, as_index=False).agg(lambda x: x.tolist())
+        new_df = df.group_by(index_col, maintain_order=True).agg(pl.all())
         logger.info("Imploded rows successfully")
         return new_df
     except Exception as e:

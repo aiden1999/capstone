@@ -1,10 +1,10 @@
-import pandas as pd
+import polars as pl
 
 from src.transform.general.transform_03 import transform_03
 
 
 def test_transform_01_works():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "Service:RDT-ID": [1, 1, 1, 2, 2, 3, 3],
             "Stop:Station code": ["A", "B", "C", "C", "D", "D", "C"],
@@ -13,7 +13,7 @@ def test_transform_01_works():
             "geo_lng": [5, 6, 7, 7, 8, 8, 7],
         }
     )
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {
             "Service:RDT-ID": [1, 2, 3],
             "Stop:Station code": [["A", "B", "C"], ["C", "D"], ["D", "C"]],
@@ -24,4 +24,4 @@ def test_transform_01_works():
         }
     )
     actual_df = transform_03(test_df)
-    pd.testing.assert_frame_equal(expected_df, actual_df)
+    pl.testing.assert_frame_equal(expected_df, actual_df)

@@ -1,4 +1,4 @@
-import pandas as pd
+import polars as pl
 import pytest
 
 from src.transform.general.transform_02 import (
@@ -9,24 +9,24 @@ from src.transform.general.transform_02 import (
 
 
 def test_keep_start_and_end_stations_works():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {"Stop:Arrival time": [None, 123, 456], "Stop:Departure time": [12, 34, None]}
     )
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {"Stop:Arrival time": [None, 456], "Stop:Departure time": [12, None]}
     )
     actual_df = keep_start_and_end_stations(test_df)
-    pd.testing.assert_frame_equal(expected_df, actual_df)
+    pl.testing.assert_frame_equal(expected_df, actual_df)
 
 
 def test_keep_start_and_end_stations_returns_exception():
-    test_df = pd.DataFrame({"a column": [1, 2, 3]})
+    test_df = pl.DataFrame({"a column": [1, 2, 3]})
     with pytest.raises(Exception):
         keep_start_and_end_stations(test_df)
 
 
 def test_create_columns_works():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "Stop:Arrival time": [None, 456],
             "Stop:Departure time": [12, None],
@@ -35,7 +35,7 @@ def test_create_columns_works():
     )
     test_old_columns = ["Stop:Station name"]
     test_new_columns = ["start_station"]
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {
             "Stop:Arrival time": [None, 456],
             "Stop:Departure time": [12, None],
@@ -46,12 +46,12 @@ def test_create_columns_works():
     actual_df = create_columns(
         test_df, test_old_columns, test_new_columns, "Stop:Departure time"
     )
-    pd.testing.assert_frame_equal(actual_df, expected_df)
+    pl.testing.assert_frame_equal(actual_df, expected_df)
     pass
 
 
 def test_create_columns_returns_exception():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "Stop:Arrival time": [None, 456],
             "Stop:Departure time": [12, None],
@@ -68,7 +68,7 @@ def test_create_columns_returns_exception():
 
 
 def test_merge_rows_works():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "Service:RDT-ID": [1, 1],
             "Stop:Arrival time": [None, 456],
@@ -77,7 +77,7 @@ def test_merge_rows_works():
             "end_station": [None, "B"],
         }
     )
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {
             "Service:RDT-ID": [1],
             "Stop:Arrival time": [456],
@@ -87,11 +87,11 @@ def test_merge_rows_works():
         }
     )
     actual_df = merge_rows(test_df)
-    pd.testing.assert_frame_equal(expected_df, actual_df, check_dtype=False)
+    pl.testing.assert_frame_equal(expected_df, actual_df, check_dtype=False)
 
 
 def test_merge_rows_returns_exception():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "Stop:Arrival time": [None, 456],
             "Stop:Departure time": [12, None],

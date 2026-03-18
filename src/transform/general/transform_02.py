@@ -1,6 +1,6 @@
 """Transformation for visualisation 02."""
 
-import pandas as pd
+import polars as pl
 
 from src.constants import VIS_02_COLUMNS
 from src.logger import setup_logger
@@ -9,7 +9,7 @@ from src.transform.utils import count_services, keep_columns
 logger = setup_logger(__name__, "transform.log")
 
 
-def transform_02(df: pd.DataFrame) -> pd.DataFrame:
+def transform_02(df: pl.DataFrame) -> pl.DataFrame:
     """Transforms data needed for visualisation 02.
 
     Args:
@@ -41,7 +41,7 @@ def transform_02(df: pd.DataFrame) -> pd.DataFrame:
     return transformed_df
 
 
-def keep_start_and_end_stations(df: pd.DataFrame) -> pd.DataFrame:
+def keep_start_and_end_stations(df: pl.DataFrame) -> pl.DataFrame:
     """Removes records of intermediate stops.
 
     Intermediate stops have both an arrival time and departure time, so those
@@ -56,10 +56,9 @@ def keep_start_and_end_stations(df: pd.DataFrame) -> pd.DataFrame:
     logger.info("Removing intermediate stations")
     try:
         start_end_mask = (
-            df["Stop:Arrival time"].isnull() | df["Stop:Departure time"].isnull()
+            df["Stop:Arrival time"].is_null() | df["Stop:Departure time"].is_null()
         )
         start_end_df = df[start_end_mask]
-        start_end_df.reset_index(drop=True, inplace=True)
         logger.info("Successfully removed intermediate stations")
         return start_end_df
     except Exception as e:
@@ -68,8 +67,8 @@ def keep_start_and_end_stations(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_columns(
-    df: pd.DataFrame, old_cols: list[str], new_cols: list[str], cond_col: str
-) -> pd.DataFrame:
+    df: pl.DataFrame, old_cols: list[str], new_cols: list[str], cond_col: str
+) -> pl.DataFrame:
     """Creates columns with more descriptive names.
 
     For example, for the rows that have a departure time (start stops), for
@@ -91,11 +90,17 @@ def create_columns(
     """
     logger.info(f"Creating new columns: {new_cols}")
     try:
-        new_df = df.copy()
-        mask = new_df[cond_col].notnull()
-        for i in range(len(old_cols)):
-            new_df.loc[:, new_cols[i]] = None
-            new_df.loc[mask, new_cols[i]] = new_df.loc[mask, old_cols[i]]
+        new_df = df.clone()
+        mask = new_df[cond_col].is_not_null()
+        new_df = new_df.with_columns(
+            [
+                pl.when(mask)
+                .then(pl.col(old_cols[i]))
+                .otherwise(None)
+                .alias(new_cols[i])
+                for i in range(len(old_cols))
+            ]
+        )
         logger.info("Successfully created new columns")
         return new_df
     except Exception as e:
@@ -103,7 +108,7 @@ def create_columns(
         raise
 
 
-def merge_rows(df: pd.DataFrame) -> pd.DataFrame:
+def merge_rows(df: pl.DataFrame) -> pl.DataFrame:
     """Merge rows so that a record has no nulls in start_station, start_lat,
     start_lng, end_station, end_lat, end_lng.
 
@@ -115,7 +120,7 @@ def merge_rows(df: pd.DataFrame) -> pd.DataFrame:
     """
     logger.info("Merging rows")
     try:
-        merged_df = df.groupby("Service:RDT-ID", as_index=False).first()
+        merged_df = df.group_by("Service:RDT-ID").first()
         logger.info("Successfully merged rows")
         return merged_df
     except Exception as e:

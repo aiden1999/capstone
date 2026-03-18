@@ -1,13 +1,13 @@
 """Transformation for visualisation 01."""
 
-import pandas as pd
+import polars as pl
 
 from src.logger import setup_logger
 
 logger = setup_logger(__name__, "transform.log")
 
 
-def transform_01(df: pd.DataFrame) -> pd.DataFrame:
+def transform_01(df: pl.DataFrame) -> pl.DataFrame:
     """Transforms data needed for visualisation 01.
 
     Counts the number of unique service IDs and puts that number into a DataFrame.
@@ -19,7 +19,7 @@ def transform_01(df: pd.DataFrame) -> pd.DataFrame:
         Transformed DataFrame.
     """
     logger.info("Transforming for 01")
-    num_services = df["Service:RDT-ID"].nunique()
-    transformed_df = pd.DataFrame({"total_planned_services": [num_services]})
+    num_services = df["Service:RDT-ID"].n_unique()
+    transformed_df = pl.DataFrame({"total_planned_services": [num_services]})
     logger.info("Successfully transformed for 01")
     return transformed_df

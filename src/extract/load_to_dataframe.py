@@ -2,14 +2,14 @@
 
 import os
 
-import pandas as pd
+import polars as pl
 
 from src.logger import setup_logger
 
 logger = setup_logger(__name__, "extract.log")
 
 
-def load_to_dataframe(dir_path: str, file: str, use_cols) -> pd.DataFrame:
+def load_to_dataframe(dir_path: str, file: str, use_cols: list[str]) -> pl.DataFrame:
     """Loads a CSV file into a DataFrame.
 
     Args:
@@ -23,7 +23,7 @@ def load_to_dataframe(dir_path: str, file: str, use_cols) -> pd.DataFrame:
     logger.info(f"Loading {file} into DataFrame")
     csv_path = os.path.join(dir_path, file)
     try:
-        df = pd.read_csv(csv_path, engine="pyarrow", usecols=use_cols)
+        df = pl.read_csv(csv_path, columns=use_cols)
         logger.info(f"Loaded {file} into DataFrame")
         return df
     except Exception as e:
