@@ -122,4 +122,4 @@ def test_implode_rows_works():
         }
     )
     returned_df = implode_rows(test_df, test_index_col)
-    pd.testing.assert_frame_equal(expected_df, returned_df)
+    pl.testing.assert_frame_equal(expected_df, returned_df)
