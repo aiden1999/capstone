@@ -24,7 +24,6 @@ def explode_row(df: pl.DataFrame, column: str) -> pl.DataFrame:
     try:
         df = df.with_columns(pl.col(column).str.split(","))
         df_exploded = df.explode(column)
-        # df_exploded = df.with_columns(pl.col(column).str.strip_chars())
         logger.info("Explode succeeded")
         return df_exploded
     except Exception as e:
