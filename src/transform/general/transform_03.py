@@ -27,4 +27,10 @@ def transform_03(df: pl.DataFrame) -> pl.DataFrame:
     ).sort(
         "Service:RDT-ID"
     )  # sorting only so that tests pass
+    df_no_dups = df_no_dups.with_columns(
+        pl.col("Stop:Station code", "Stop:Station name").list.join(", "),
+        pl.col("geo_lat", "geo_lng")
+        .list.eval(pl.element().cast(pl.String))
+        .list.join(", "),
+    )
     return df_no_dups

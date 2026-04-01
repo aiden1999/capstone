@@ -23,6 +23,7 @@ def load_data(dfs: list[list[pl.DataFrame]], dir_path: str):
             for df in category:
                 file_name = str(count).zfill(2)
                 file_name += ".csv"
+                logger.debug(f"Loading {file_name}")
                 file_path = os.path.join(dir_path, file_name)
                 df.write_csv(file_path)
                 count += 1

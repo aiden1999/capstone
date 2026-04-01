@@ -17,10 +17,10 @@ def test_transform_03_works():
     expected_df = pl.DataFrame(
         {
             "Service:RDT-ID": [1, 2, 3],
-            "Stop:Station code": [["A", "B", "C"], ["C", "D"], ["D", "C"]],
-            "Stop:Station name": [["a", "b", "c"], ["c", "d"], ["d", "c"]],
-            "geo_lat": [[1, 2, 3], [3, 4], [4, 3]],
-            "geo_lng": [[5, 6, 7], [7, 8], [8, 7]],
+            "Stop:Station code": ["A, B, C", "C, D", "D, C"],
+            "Stop:Station name": ["a, b, c", "c, d", "d, c"],
+            "geo_lat": ["1, 2, 3", "3, 4", "4, 3"],
+            "geo_lng": ["5, 6, 7", "7, 8", "8, 7"],
             "Total stops": [3, 2, 2],
         }
     )
