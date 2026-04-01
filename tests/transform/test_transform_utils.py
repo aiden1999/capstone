@@ -103,7 +103,7 @@ def test_count_services_returns_exception():
     )
     test_col_list = ["start"]
     with pytest.raises(Exception):
-        returned_df = count_services(test_df, test_col_list)
+        count_services(test_df, test_col_list)
 
 
 def test_implode_rows_works():
