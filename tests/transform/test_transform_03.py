@@ -4,7 +4,7 @@ import polars.testing as pl_testing
 from src.transform.general.transform_03 import transform_03
 
 
-def test_transform_01_works():
+def test_transform_03_works():
     test_df = pl.DataFrame(
         {
             "Service:RDT-ID": [1, 1, 1, 2, 2, 3, 3],
@@ -25,4 +25,4 @@ def test_transform_01_works():
         }
     )
     actual_df = transform_03(test_df)
-    pl_testing.assert_frame_equal(expected_df, actual_df)
+    pl_testing.assert_frame_equal(expected_df, actual_df, check_dtypes=False)

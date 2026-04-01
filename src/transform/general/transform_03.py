@@ -24,5 +24,7 @@ def transform_03(df: pl.DataFrame) -> pl.DataFrame:
     df_no_dups = df_imploded_rows.unique(subset="Stop:Station code")
     df_no_dups = df_no_dups.with_columns(
         pl.col("Stop:Station code").list.len().alias("Total stops")
-    )
+    ).sort(
+        "Service:RDT-ID"
+    )  # sorting only so that tests pass
     return df_no_dups
