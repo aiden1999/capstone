@@ -1,4 +1,5 @@
 import polars as pl
+import polars.testing as pl_testing
 import pytest
 
 from src.transform.general.transform_02 import (
@@ -16,7 +17,7 @@ def test_keep_start_and_end_stations_works():
         {"Stop:Arrival time": [None, 456], "Stop:Departure time": [12, None]}
     )
     actual_df = keep_start_and_end_stations(test_df)
-    pl.testing.assert_frame_equal(expected_df, actual_df)
+    pl_testing.assert_frame_equal(expected_df, actual_df)
 
 
 def test_keep_start_and_end_stations_returns_exception():
@@ -46,7 +47,7 @@ def test_create_columns_works():
     actual_df = create_columns(
         test_df, test_old_columns, test_new_columns, "Stop:Departure time"
     )
-    pl.testing.assert_frame_equal(actual_df, expected_df)
+    pl_testing.assert_frame_equal(actual_df, expected_df)
     pass
 
 
@@ -87,7 +88,7 @@ def test_merge_rows_works():
         }
     )
     actual_df = merge_rows(test_df)
-    pl.testing.assert_frame_equal(expected_df, actual_df, check_dtype=False)
+    pl_testing.assert_frame_equal(expected_df, actual_df, check_dtypes=False)
 
 
 def test_merge_rows_returns_exception():

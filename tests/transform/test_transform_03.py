@@ -1,4 +1,5 @@
 import polars as pl
+import polars.testing as pl_testing
 
 from src.transform.general.transform_03 import transform_03
 
@@ -24,4 +25,4 @@ def test_transform_01_works():
         }
     )
     actual_df = transform_03(test_df)
-    pl.testing.assert_frame_equal(expected_df, actual_df)
+    pl_testing.assert_frame_equal(expected_df, actual_df)

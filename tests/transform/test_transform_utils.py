@@ -1,6 +1,6 @@
 import polars as pl
+import polars.testing as pl_testing
 import pytest
-from polars.testing import assert_frame_equal
 
 from src.transform.utils import (
     count_services,
@@ -25,7 +25,7 @@ def test_explode_row_works():
         }
     )
     returned_df = explode_row(test_df, column)
-    assert_frame_equal(returned_df, expected_df)
+    pl_testing.assert_frame_equal(returned_df, expected_df)
 
 
 def test_explode_row_returns_exception():
@@ -51,7 +51,7 @@ def test_merge_dataframes_works():
     )
     join_column = "id"
     returned_df = merge_dataframes(test_df_1, test_df_2, join_column, join_column)
-    assert_frame_equal(returned_df, expected_df)
+    pl_testing.assert_frame_equal(returned_df, expected_df)
 
 
 def test_merge_dataframes_returns_exception():
@@ -67,7 +67,7 @@ def test_keep_columns_works():
     columns = ["id", "name"]
     expected_df = pl.DataFrame({"id": [1, 2], "name": ["Alice", "Bob"]})
     test_df = keep_columns(test_df, columns)
-    assert_frame_equal(test_df, expected_df)
+    pl_testing.assert_frame_equal(test_df, expected_df)
 
 
 def test_count_services_works():
@@ -90,7 +90,7 @@ def test_count_services_works():
         }
     )
     actual_df = count_services(test_df, test_col_list)
-    assert_frame_equal(left=expected_df, right=actual_df, check_dtypes=False)
+    pl_testing.assert_frame_equal(left=expected_df, right=actual_df, check_dtypes=False)
 
 
 def test_count_services_returns_exception():
@@ -123,4 +123,4 @@ def test_implode_rows_works():
         }
     )
     returned_df = implode_rows(test_df, test_index_col)
-    assert_frame_equal(expected_df, returned_df)
+    pl_testing.assert_frame_equal(expected_df, returned_df)
