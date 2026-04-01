@@ -13,6 +13,6 @@ def get_data_01() -> str:
         String of the needed data.
     """
     df_01 = load_to_dataframe(OUTPUT_PATH, "01.csv", ["total_planned_services"])
-    value_01 = df_01["name"][0]
+    value_01 = df_01["total_planned_services"][0]
     value_01 = humanize.intcomma(value_01)
     return value_01
