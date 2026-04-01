@@ -15,7 +15,7 @@ def get_data_02() -> pl.DataFrame:
         DataFrame with the needed data.
     """
     df_02 = load_to_dataframe(OUTPUT_PATH, "02.csv", COLUMNS_02)
-    df_02.sort(by="route_count", descending=True)
+    df_02 = df_02.sort(by="route_count", descending=True)
     return df_02
 
 

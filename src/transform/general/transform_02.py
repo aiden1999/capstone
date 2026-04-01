@@ -23,21 +23,17 @@ def transform_02(df: pl.DataFrame) -> pl.DataFrame:
     old_columns = ["Stop:Station name", "geo_lat", "geo_lng"]
     new_columns_start = ["start_station", "start_lat", "start_lng"]
     new_columns_end = ["end_station", "end_lat", "end_lng"]
-    df_with_start = create_columns(
-        df, old_columns, new_columns_start, "Stop:Departure time"
-    )
-    df_with_end = create_columns(
-        df_with_start, old_columns, new_columns_end, "Stop:Arrival time"
-    )
-    df_needed_cols = keep_columns(df_with_end, VIS_02_COLUMNS)
-    df_merged_rows = merge_rows(df_needed_cols)
+    df = create_columns(df, old_columns, new_columns_start, "Stop:Departure time")
+    df = create_columns(df, old_columns, new_columns_end, "Stop:Arrival time")
+    df = keep_columns(df, VIS_02_COLUMNS)
+    df = merge_rows(df)
     group_by_cols = ["Service:Type", "Service:Company", "start_station", "end_station"]
-    df_service_count = count_services(df_merged_rows, group_by_cols)
-    df_service_count.drop("Service:RDT-ID")
-    transformed_df = df_service_count.unique()
-    transformed_df.drop_nulls()
+    df = count_services(df, group_by_cols)
+    df = df.drop("Service:RDT-ID")
+    df = df.unique()
+    df = df.drop_nulls()
     logger.info("Successfully transformed for 02")
-    return transformed_df
+    return df
 
 
 def keep_start_and_end_stations(df: pl.DataFrame) -> pl.DataFrame:
