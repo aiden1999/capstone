@@ -22,9 +22,9 @@ def explode_row(df: pl.DataFrame, column: str) -> pl.DataFrame:
     """
     logger.info(f"Exploding dataframe on column {column}")
     try:
-        df[column] = df[column].str.split(",")
+        df = df.with_columns(pl.col(column).str.split(","))
         df_exploded = df.explode(column)
-        df_exploded[column] = df_exploded[column].str.strip_chars()
+        df_exploded = df.with_columns(pl.col(column).str.strip_chars())
         logger.info("Explode succeeded")
         return df_exploded
     except Exception as e:
@@ -72,7 +72,7 @@ def keep_columns(df: pl.DataFrame, keep_columns: list[str]) -> pl.DataFrame:
     return new_df
 
 
-def count_services(df: pl.DataFrame, group_by_cols: list[str]):
+def count_services(df: pl.DataFrame, group_by_cols: list[str]) -> pl.DataFrame:
     """Counts the number of services based on the group by.
 
     Args:
@@ -81,9 +81,11 @@ def count_services(df: pl.DataFrame, group_by_cols: list[str]):
     """
     logger.info("Counting services")
     try:
-        df = df.with_columns(pl.len().over(group_by_cols).alias("route_count"))
-        df = df.with_columns(pl.col("route_count").fill_null(1).cast(pl.Int32))
+        transformed_df = df.with_columns(
+            pl.len().over(group_by_cols).alias("route_count")
+        )
         logger.info("Successfully counted services")
+        return transformed_df
     except Exception as e:
         logger.error(f"Count services failed: {e}")
         raise

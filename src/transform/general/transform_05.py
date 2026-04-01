@@ -22,7 +22,7 @@ def transform_05(df: pl.DataFrame) -> pl.DataFrame:
     )
     df_no_duplicates = df_needed_columns.unique()
     group_by_cols = ["Service:Type", "Service:Company"]
-    count_services(df_no_duplicates, group_by_cols)
-    transformed_df = df_no_duplicates.drop("Service:RDT-ID")
+    df_service_count = count_services(df_no_duplicates, group_by_cols)
+    transformed_df = df_service_count.drop("Service:RDT-ID")
     transformed_df.unique()
     return transformed_df

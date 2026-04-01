@@ -32,11 +32,10 @@ def transform_02(df: pl.DataFrame) -> pl.DataFrame:
     df_needed_cols = keep_columns(df_with_end, VIS_02_COLUMNS)
     df_merged_rows = merge_rows(df_needed_cols)
     group_by_cols = ["Service:Type", "Service:Company", "start_station", "end_station"]
-    count_services(df_merged_rows, group_by_cols)
-    df_merged_rows.drop(columns=["Service:RDT-ID"], inplace=True)
-    transformed_df = df_merged_rows.drop_duplicates()
-    transformed_df.dropna(axis="index", inplace=True)
-    transformed_df.reset_index(inplace=True, drop=True)
+    df_service_count = count_services(df_merged_rows, group_by_cols)
+    df_service_count.drop("Service:RDT-ID")
+    transformed_df = df_service_count.unique()
+    transformed_df.drop_nulls()
     logger.info("Successfully transformed for 02")
     return transformed_df
 
@@ -55,10 +54,10 @@ def keep_start_and_end_stations(df: pl.DataFrame) -> pl.DataFrame:
     """
     logger.info("Removing intermediate stations")
     try:
-        start_end_mask = (
-            df["Stop:Arrival time"].is_null() | df["Stop:Departure time"].is_null()
+        start_end_df = df.filter(
+            pl.col("Stop:Arrival time").is_null()
+            | pl.col("Stop:Departure time").is_null()
         )
-        start_end_df = df[start_end_mask]
         logger.info("Successfully removed intermediate stations")
         return start_end_df
     except Exception as e:
