@@ -119,7 +119,7 @@ def merge_rows(df: pl.DataFrame) -> pl.DataFrame:
     """
     logger.info("Merging rows")
     try:
-        merged_df = df.group_by("Service:RDT-ID").first()
+        merged_df = df.group_by("Service:RDT-ID").first(ignore_nulls=True)
         logger.info("Successfully merged rows")
         return merged_df
     except Exception as e:
