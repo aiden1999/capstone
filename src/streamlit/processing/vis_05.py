@@ -27,8 +27,11 @@ def get_data_05_operators_grouped(df: pl.DataFrame) -> pl.DataFrame:
         Transformed DataFrame.
     """
     df_05_operators = df.clone()
-    df_05_operators.drop("Service:Type")
-    df_05_operators.group_by("Service:Company").agg(pl.count("route_count").sum())
+    df_05_operators = (
+        df_05_operators.group_by("Service:Company")
+        .agg(pl.col("route_count").sum())
+        .sort("route_count", descending=True)
+    )
     return df_05_operators
 
 
