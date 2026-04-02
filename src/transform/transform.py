@@ -82,7 +82,6 @@ def remove_international_data(df: pl.DataFrame) -> pl.DataFrame:
         international_df = df.filter(country_mask)
         international_ids = international_df[:, 0].unique().to_list()
         domestic_df = df.filter(~pl.first().is_in(international_ids))
-        logger.info("Removed international data")
         return domestic_df
     except Exception as e:
         logger.error(f"Removing international data failed: {e}")

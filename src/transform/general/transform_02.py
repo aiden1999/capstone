@@ -32,7 +32,6 @@ def transform_02(df: pl.DataFrame) -> pl.DataFrame:
     df = df.drop("Service:RDT-ID")
     df = df.unique()
     df = df.drop_nulls()
-    logger.info("Successfully transformed for 02")
     return df
 
 
@@ -54,7 +53,6 @@ def keep_start_and_end_stations(df: pl.DataFrame) -> pl.DataFrame:
             pl.col("Stop:Arrival time").is_null()
             | pl.col("Stop:Departure time").is_null()
         )
-        logger.info("Successfully removed intermediate stations")
         return start_end_df
     except Exception as e:
         logger.error(f"Remove intermediate stations failed: {e}")
@@ -96,7 +94,6 @@ def create_columns(
                 for i in range(len(old_cols))
             ]
         )
-        logger.info("Successfully created new columns")
         return new_df
     except Exception as e:
         logger.error(f"Create new columns failed: {e}")
@@ -116,7 +113,6 @@ def merge_rows(df: pl.DataFrame) -> pl.DataFrame:
     logger.info("Merging rows")
     try:
         merged_df = df.group_by("Service:RDT-ID").first(ignore_nulls=True)
-        logger.info("Successfully merged rows")
         return merged_df
     except Exception as e:
         logger.error(f"Merge rows failed: {e}")

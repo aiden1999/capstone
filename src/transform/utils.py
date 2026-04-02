@@ -24,7 +24,6 @@ def explode_row(df: pl.DataFrame, column: str) -> pl.DataFrame:
     try:
         df = df.with_columns(pl.col(column).str.split(","))
         df_exploded = df.explode(column)
-        logger.info("Explode succeeded")
         return df_exploded
     except Exception as e:
         logger.error(f"Explode failed: {e}")
@@ -48,7 +47,6 @@ def merge_dataframes(
     logger.info("Merging...")
     try:
         merged_df = df_1.join(df_2, left_on=col_1, right_on=col_2)
-        logger.info("Merge succeeded")
         return merged_df
     except Exception as e:
         logger.error(f"Merge failed: {e}")
@@ -67,7 +65,6 @@ def keep_columns(df: pl.DataFrame, keep_columns: list[str]) -> pl.DataFrame:
     """
     logger.info("Dropping columns")
     new_df = df.select([col for col in keep_columns if col in df.columns])
-    logger.info("Dropped columns successfully")
     return new_df
 
 
@@ -83,7 +80,6 @@ def count_services(df: pl.DataFrame, group_by_cols: list[str]) -> pl.DataFrame:
         transformed_df = df.with_columns(
             pl.len().over(group_by_cols).alias("route_count")
         )
-        logger.info("Successfully counted services")
         return transformed_df
     except Exception as e:
         logger.error(f"Count services failed: {e}")
@@ -103,7 +99,6 @@ def implode_rows(df: pl.DataFrame, index_col: str) -> pl.DataFrame:
     logger.info("Imploding rows")
     try:
         new_df = df.group_by(index_col, maintain_order=True).agg(pl.all())
-        logger.info("Imploded rows successfully")
         return new_df
     except Exception as e:
         logger.error(f"Implode rows failed: {e}")

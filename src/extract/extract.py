@@ -37,7 +37,6 @@ def extract_data() -> list[pl.DataFrame]:
         for i in range(3):
             df = load_to_dataframe(RAW_DATA_FILE_PATH, csv_files[i], use_cols[i])
             dataframes.append(df)
-        logger.info("Finished data extraction")
         return dataframes
     except Exception as e:
         logger.error(f"Extraction failed: {e}")
