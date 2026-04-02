@@ -30,7 +30,7 @@ def get_map(df: pl.DataFrame) -> folium.Map:
         A Folium map with the datapoints plotted.
     """
     map = folium.Map(location=MAP_CENTER, zoom_start=7)
-    for _, row in df.iter_rows():
+    for row in df.iter_rows(named=True):
         start_point = [row["start_lat"], row["start_lng"]]
         end_point = [row["end_lat"], row["end_lng"]]
         folium.Marker(
