@@ -14,7 +14,6 @@ import requests
 from src.constants import SERVICES_GZIP_URL
 from src.logger import setup_logger
 
-
 logger = setup_logger(__name__, "extract.log")
 
 
@@ -67,7 +66,6 @@ def download_file(url: str, output_path: str):
         with open(output_path, "wb") as file:
             for chunk in response.iter_content(chunk_size=chunk_size):
                 file.write(chunk)
-        logger.info("File finished downloading.")
     except Exception as e:
         logger.error(f"Download failed: {e}")
         raise
@@ -85,7 +83,6 @@ def extract_file(input_path: str, output_path: str):
         with gzip.open(input_path, "rb") as file_in:
             with open(output_path, "wb") as file_out:
                 shutil.copyfileobj(file_in, file_out)
-        logger.info(f"Extracted {output_path}")
     except Exception as e:
         logger.error(f"Decompression failed: {e}")
         raise

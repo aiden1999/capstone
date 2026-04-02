@@ -21,5 +21,4 @@ def transform_01(df: pl.DataFrame) -> pl.DataFrame:
     logger.info("Transforming for 01")
     num_services = df["Service:RDT-ID"].n_unique()
     transformed_df = pl.DataFrame({"total_planned_services": [num_services]})
-    logger.info("Successfully transformed for 01")
     return transformed_df

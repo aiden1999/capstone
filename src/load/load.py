@@ -27,7 +27,6 @@ def load_data(dfs: list[list[pl.DataFrame]], dir_path: str):
                 file_path = os.path.join(dir_path, file_name)
                 df.write_csv(file_path)
                 count += 1
-        logger.info("Finished data loading")
     except Exception as e:
         logger.error(f"Loading failed: {e}")
         raise

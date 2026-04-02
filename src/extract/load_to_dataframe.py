@@ -24,7 +24,6 @@ def load_to_dataframe(dir_path: str, file: str, use_cols: list[str]) -> pl.DataF
     csv_path = os.path.join(dir_path, file)
     try:
         df = pl.read_csv(csv_path, columns=use_cols)
-        logger.info(f"Loaded {file} into DataFrame")
         return df
     except Exception as e:
         logger.error(f"Failed to load {file} into DataFrame: {e}")
