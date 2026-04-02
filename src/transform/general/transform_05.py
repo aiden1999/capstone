@@ -17,12 +17,10 @@ def transform_05(df: pl.DataFrame) -> pl.DataFrame:
     Returns:
         Transformed DataFrame.
     """
-    df_needed_columns = keep_columns(
-        df, ["Service:RDT-ID", "Service:Type", "Service:Company"]
-    )
-    df_no_duplicates = df_needed_columns.unique()
+    df = keep_columns(df, ["Service:RDT-ID", "Service:Type", "Service:Company"])
+    df = df.unique()  # each service is counted once
     group_by_cols = ["Service:Type", "Service:Company"]
-    df_service_count = count_services(df_no_duplicates, group_by_cols)
-    transformed_df = df_service_count.drop("Service:RDT-ID")
-    transformed_df.unique()
-    return transformed_df
+    df = count_services(df, group_by_cols)
+    df = df.drop("Service:RDT-ID")
+    df = df.unique()
+    return df
