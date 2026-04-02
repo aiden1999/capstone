@@ -66,9 +66,9 @@ def get_data_05_service_type(df: pl.DataFrame, chosen_operator) -> pl.DataFrame:
     Returns:
         Transformed DataFrame.
     """
-    operator_mask = df["Service:Company"] == chosen_operator
-    df_05_service_type = df[operator_mask]
-    df_05_service_type = df_05_service_type.rename(
-        {"Service:Type": "service_type"}, axis=1
+    df_05_service_type = (
+        df.filter(pl.col("Service:Company") == chosen_operator)
+        .rename({"Service:Type": "service_type"})
+        .sort("service_type")
     )
     return df_05_service_type

@@ -73,8 +73,14 @@ st.dataframe(
 
 st.markdown("#### Service types by operator")
 
+if "chosen_operator" not in st.session_state:
+    st.session_state.chosen_operator = "NS"
+
 chosen_operator = st.pills(
-    "Choose an operator", df_05_operators_grouped["Service:Company"], default="NS"
+    "Choose an operator",
+    df_05_operators_grouped["Service:Company"],
+    default=st.session_state.chosen_operator,
+    key="chosen_operator",
 )
 df_05_service_type = get_data_05_service_type(df_05, chosen_operator)
 st.bar_chart(
