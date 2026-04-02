@@ -1,5 +1,18 @@
 """Constants for use with the Streamlit app."""
 
+RED = "#ad1d25"
+MAP_CENTER = [52, 6]
+COLUMNS_02 = [
+    "Service:Type",
+    "Service:Company",
+    "start_station",
+    "start_lat",
+    "start_lng",
+    "end_station",
+    "end_lat",
+    "end_lng",
+    "route_count",
+]
 COLUMN_CONFIG_02 = {
     "Service:Type": "Type",
     "Service:Company": "Operator",
@@ -11,8 +24,7 @@ COLUMN_CONFIG_02 = {
     "end_lng": None,
     "route_count": "Route Count",
 }
-RED = "#ad1d25"
-MAP_CENTER = [52, 6]
+COLUMNS_05 = ["Service:Type", "Service:Company", "route_count"]
 COLUMN_CONFIG_05_OPERATORS = {
     "Service:Company": "Operator",
     "route_count": "Total services",

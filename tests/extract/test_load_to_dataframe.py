@@ -1,4 +1,4 @@
-import pandas as pd
+import polars as pl
 import pytest
 
 from src.constants import STATIONS_USECOLS
@@ -10,7 +10,7 @@ def test_load_to_dataframe_returns_df():
     file = "stations-2023-09.csv"
     use_cols = STATIONS_USECOLS
     df = load_to_dataframe(dir_path, file, use_cols)
-    assert isinstance(df, pd.DataFrame)
+    assert isinstance(df, pl.DataFrame)
 
 
 def test_load_to_dataframe_raises_exception():

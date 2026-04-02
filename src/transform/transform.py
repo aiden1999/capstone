@@ -3,7 +3,7 @@
 Called in run_etl.
 """
 
-import pandas as pd
+import polars as pl
 
 from src.constants import (
     # DPCC_COLUMNS,
@@ -22,7 +22,7 @@ from src.transform.utils import (
 logger = setup_logger("transform", "transform.log")
 
 
-def transform_data(extracted_data: list[pd.DataFrame]) -> list[list[pd.DataFrame]]:
+def transform_data(extracted_data: list[pl.DataFrame]) -> list[list[pl.DataFrame]]:
     """Orchestrated the transformation of data from DataFrames.
 
     Args:
@@ -63,7 +63,7 @@ def transform_data(extracted_data: list[pd.DataFrame]) -> list[list[pd.DataFrame
     return [general_dfs]
 
 
-def remove_international_data(df: pd.DataFrame) -> pd.DataFrame:
+def remove_international_data(df: pl.DataFrame) -> pl.DataFrame:
     """Removes international data from a DataFrame.
 
     Makes a DataFrame of the service IDs that have a stop in an international
@@ -78,12 +78,10 @@ def remove_international_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     logger.info("Removing international data")
     try:
-        country_mask = df["country"].isin(INTERNATIONAL_COUNTRIES)
-        international_df = df[country_mask]
-        international_ids = international_df.iloc[:, 0].unique().tolist()
-        id_mask = ~df.iloc[:, 0].isin(international_ids)
-        domestic_df = df[id_mask]
-        domestic_df.reset_index(drop=True, inplace=True)
+        country_mask = df["country"].is_in(INTERNATIONAL_COUNTRIES)
+        international_df = df.filter(country_mask)
+        international_ids = international_df[:, 0].unique().to_list()
+        domestic_df = df.filter(~pl.first().is_in(international_ids))
         logger.info("Removed international data")
         return domestic_df
     except Exception as e:

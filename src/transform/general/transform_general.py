@@ -1,6 +1,6 @@
 """Tranformation for general statistics."""
 
-import pandas as pd
+import polars as pl
 
 from src.logger import setup_logger
 from src.transform.general.transform_01 import transform_01
@@ -11,7 +11,7 @@ from src.transform.general.transform_05 import transform_05
 logger = setup_logger(__name__, "transform.log")
 
 
-def transform_general(df: pd.DataFrame) -> list[pd.DataFrame]:
+def transform_general(df: pl.DataFrame) -> list[pl.DataFrame]:
     """Orchestrates the transformation of the general statistics DataFrame.
 
     Args:

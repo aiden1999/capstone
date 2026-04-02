@@ -3,7 +3,7 @@
 Called in run_etl.
 """
 
-import pandas as pd
+import polars as pl
 
 from src.constants import (
     DISRUPTIONS_RAW_FILE,
@@ -22,7 +22,7 @@ from src.logger import setup_logger
 logger = setup_logger("extract", "extract.log")
 
 
-def extract_data() -> list[pd.DataFrame]:
+def extract_data() -> list[pl.DataFrame]:
     """Extracts data from CSV files and loads into dataframes.
 
     Returns:

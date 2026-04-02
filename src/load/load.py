@@ -1,6 +1,6 @@
 """Load DataFrames into CSVs."""
 
-import pandas as pd
+import polars as pl
 import os
 
 from src.logger import setup_logger
@@ -8,7 +8,7 @@ from src.logger import setup_logger
 logger = setup_logger("load", "load.log")
 
 
-def load_data(dfs: list[list[pd.DataFrame]], dir_path: str):
+def load_data(dfs: list[list[pl.DataFrame]], dir_path: str):
     """Loads DataFrames into CSVs by looping through a list of lists of
     DataFrames, incrementing the name of the output CSV each time.
 
@@ -23,8 +23,9 @@ def load_data(dfs: list[list[pd.DataFrame]], dir_path: str):
             for df in category:
                 file_name = str(count).zfill(2)
                 file_name += ".csv"
+                logger.debug(f"Loading {file_name}")
                 file_path = os.path.join(dir_path, file_name)
-                df.to_csv(file_path, index=False)
+                df.write_csv(file_path)
                 count += 1
         logger.info("Finished data loading")
     except Exception as e:

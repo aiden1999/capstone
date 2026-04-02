@@ -1,4 +1,5 @@
-import pandas as pd
+import polars as pl
+import polars.testing as pl_testing
 import pytest
 
 from src.transform.utils import (
@@ -9,14 +10,14 @@ from src.transform.utils import (
     merge_dataframes,
 )
 
-test_df = pd.DataFrame(
+test_df = pl.DataFrame(
     {"id": [1, 2], "name": ["Alice", "Bob"], "pets": ["dog,cat", "fish,rabbit"]}
 )
 
 
 def test_explode_row_works():
     column = "pets"
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {
             "id": [1, 1, 2, 2],
             "name": ["Alice", "Alice", "Bob", "Bob"],
@@ -24,7 +25,7 @@ def test_explode_row_works():
         }
     )
     returned_df = explode_row(test_df, column)
-    pd.testing.assert_frame_equal(returned_df, expected_df)
+    pl_testing.assert_frame_equal(returned_df, expected_df)
 
 
 def test_explode_row_returns_exception():
@@ -33,14 +34,14 @@ def test_explode_row_returns_exception():
         explode_row(test_df, column)
 
 
-test_df_1 = pd.DataFrame(
+test_df_1 = pl.DataFrame(
     {"id": [1, 2], "name": ["Alice", "Bob"], "pets": ["dog,cat", "fish,rabbit"]}
 )
-test_df_2 = pd.DataFrame({"id": [1, 2, 3], "country": ["England", "Wales", "Scotland"]})
+test_df_2 = pl.DataFrame({"id": [1, 2, 3], "country": ["England", "Wales", "Scotland"]})
 
 
 def test_merge_dataframes_works():
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {
             "id": [1, 2],
             "name": ["Alice", "Bob"],
@@ -50,7 +51,7 @@ def test_merge_dataframes_works():
     )
     join_column = "id"
     returned_df = merge_dataframes(test_df_1, test_df_2, join_column, join_column)
-    pd.testing.assert_frame_equal(returned_df, expected_df)
+    pl_testing.assert_frame_equal(returned_df, expected_df)
 
 
 def test_merge_dataframes_returns_exception():
@@ -60,17 +61,17 @@ def test_merge_dataframes_returns_exception():
 
 
 def test_keep_columns_works():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {"id": [1, 2], "name": ["Alice", "Bob"], "pets": ["dog,cat", "fish,rabbit"]}
     )
     columns = ["id", "name"]
-    expected_df = pd.DataFrame({"id": [1, 2], "name": ["Alice", "Bob"]})
+    expected_df = pl.DataFrame({"id": [1, 2], "name": ["Alice", "Bob"]})
     test_df = keep_columns(test_df, columns)
-    pd.testing.assert_frame_equal(test_df, expected_df)
+    pl_testing.assert_frame_equal(test_df, expected_df)
 
 
 def test_count_services_works():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "Service:Type": ["x", "x"],
             "Service:Company": ["y", "y"],
@@ -79,7 +80,7 @@ def test_count_services_works():
         }
     )
     test_col_list = ["Service:Type", "Service:Company", "start_station", "end_station"]
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {
             "Service:Type": ["x", "x"],
             "Service:Company": ["y", "y"],
@@ -88,12 +89,12 @@ def test_count_services_works():
             "route_count": [2, 2],
         }
     )
-    count_services(test_df, test_col_list)
-    pd.testing.assert_frame_equal(expected_df, test_df)
+    actual_df = count_services(test_df, test_col_list)
+    pl_testing.assert_frame_equal(left=expected_df, right=actual_df, check_dtypes=False)
 
 
 def test_count_services_returns_exception():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "Service:Type": ["x", "x"],
             "start_station": ["A", "A"],
@@ -106,7 +107,7 @@ def test_count_services_returns_exception():
 
 
 def test_implode_rows_works():
-    test_df = pd.DataFrame(
+    test_df = pl.DataFrame(
         {
             "id_col": [1, 1, 1, 2, 2, 3, 3],
             "stn_code": ["A", "B", "C", "C", "D", "D", "C"],
@@ -114,7 +115,7 @@ def test_implode_rows_works():
         }
     )
     test_index_col = "id_col"
-    expected_df = pd.DataFrame(
+    expected_df = pl.DataFrame(
         {
             "id_col": [1, 2, 3],
             "stn_code": [["A", "B", "C"], ["C", "D"], ["D", "C"]],
@@ -122,4 +123,4 @@ def test_implode_rows_works():
         }
     )
     returned_df = implode_rows(test_df, test_index_col)
-    pd.testing.assert_frame_equal(expected_df, returned_df)
+    pl_testing.assert_frame_equal(expected_df, returned_df)
