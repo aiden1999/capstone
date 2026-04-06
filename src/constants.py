@@ -8,6 +8,21 @@ SERVICES_RAW_FILE = "services-2024.csv"
 SERVICES_GZIP_URL = (
     "https://opendata.rijdendetreinen.nl/public/services/services-2024.csv.gz"
 )
+DISRUPTIONS_FILE = {
+    "file_name": "disruptions-2024",
+    "url": "https://opendata.rijdendetreinen.nl/public/disruptions/disruptions-2024.csv",
+    "download_output": "disruptions-2024.csv",
+}
+STATIONS_FILE = {
+    "file_name": "stations-2023-09",
+    "url": "https://opendata.rijdendetreinen.nl/public/stations/stations-2023-09.csv",
+    "download_output": "stations-2023-09.csv",
+}
+SERVICES_FILE = {
+    "file_name": "services-2024",
+    "url": "https://opendata.rijdendetreinen.nl/public/services/services-2024.csv.gz",
+    "download_output": "services-2024.csv.gz",
+}
 DISRUPTIONS_DTYPES = {
     "rdt_id": "int32",
     "rdt_station_codes": "string",
