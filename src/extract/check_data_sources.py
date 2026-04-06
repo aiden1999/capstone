@@ -128,9 +128,14 @@ def convert_to_parquet(dir_path: str, file: str):
         dir_path: String representing the directory path of the file.
         file: String representing the file to de converted.
     """
+    logger.info(f"Converting {file}.csv to Parquet")
     input_file = file + ".csv"
     input_path = os.path.join(dir_path, input_file)
     output_file = file + ".parquet"
     output_path = os.path.join(dir_path, output_file)
-    df = pl.scan_csv(input_path)
-    df.sink_parquet(output_path)
+    try:
+        df = pl.scan_csv(input_path)
+        df.sink_parquet(output_path)
+    except Exception as e:
+        logger.error(f"Converting CSV to Parquet failed: {e}")
+        raise
