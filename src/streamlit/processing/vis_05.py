@@ -2,9 +2,8 @@
 
 import polars as pl
 
-from src.constants import OUTPUT_PATH
-from src.extract.load_to_dataframe import load_to_dataframe
-from src.streamlit.processing.constants import COLUMNS_05
+from src.extract.load_to_dataframe import load_csv_to_dataframe
+from src.streamlit.processing.constants import COLUMNS_05, OUTPUT_PATH
 
 
 def get_data_05() -> pl.DataFrame:
@@ -13,7 +12,7 @@ def get_data_05() -> pl.DataFrame:
     Returns:
         DataFrame with the needed data.
     """
-    df_05 = load_to_dataframe(OUTPUT_PATH, "04.csv", COLUMNS_05)
+    df_05 = load_csv_to_dataframe(OUTPUT_PATH, "04.csv", COLUMNS_05)
     return df_05
 
 

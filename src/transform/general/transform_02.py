@@ -2,8 +2,8 @@
 
 import polars as pl
 
-from src.constants import VIS_02_COLUMNS
 from src.logger import setup_logger
+from src.transform.constants import VIS_02_COLUMNS
 from src.transform.utils import count_services, keep_columns
 
 logger = setup_logger(__name__, "transform.log")

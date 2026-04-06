@@ -3,7 +3,7 @@
 import polars as pl
 
 from src.logger import setup_logger
-from src.constants import VIS_03_COLUMNS
+from src.transform.constants import VIS_03_COLUMNS
 from src.transform.utils import implode_rows, keep_columns
 
 logger = setup_logger(__name__, "transform.log")

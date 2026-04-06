@@ -8,7 +8,7 @@ year of 2024._
 - [Capstone Project](#capstone-project)
   - [Usage](#usage)
     - [Prerequisites](#prerequisites)
-    - [Download and install](#download-and-install)
+    - [Download](#download)
     - [Running](#running)
   - [Data Sources](#data-sources)
   - [Planning Docs](#planning-docs)
@@ -20,7 +20,6 @@ year of 2024._
 
 - `python`
 - `uv`
-- Sufficient RAM (at least 16GB)
 
 ### Download
 
@@ -59,6 +58,7 @@ uv run all
 ## Data Sources
 
 All datasets sourced from [Rijden de Treinen](https://www.rijdendetreinen.nl/en/open-data).
+Sample data for testing from [Sample Files](https://www.getsamplefiles.com).
 
 ## Planning Docs
 

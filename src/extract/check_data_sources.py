@@ -1,38 +1,38 @@
-"""Checking that services-2024.csv is ready for extraction.
+"""Checking that parquet files are ready for extraction.
 
-Both services-2024.csv and its compressed version (services-2024.csv.gz) are
-too large to be stored on GitHub, so the file(s) may need to be downloaded
-and/or decompressed.
+Checks that the needed parquet files exists, if not orchestrate their download and/or extraction.
 """
 
 import gzip
 import os
+import re
 import shutil
 
+import polars as pl
 import requests
 
-from src.constants import SERVICES_GZIP_URL
 from src.logger import setup_logger
 
 logger = setup_logger(__name__, "extract.log")
 
 
-def check_data_sources(dir_path: str, csv_file: str, gzip_file: str):
-    """Checks if services-2024.csv exists and orchestrates downloading and/or
+def check_data_sources(dir_path: str, file: dict):
+    """Checks if a file exists and orchestrates downloading and/or
     decompressing if required.
 
     Args:
         dir_path: String representing the directory path of the raw data.
-        csv_file: String representing the csv file name to check.
-        gzip_file: String representing the gzip file name to check.
+        file: Dictionary representing the file to check.
     """
     logger.info("Checking data sources...")
-    if not check_file_exists(dir_path, csv_file):
-        gzip_file_path = os.path.join(dir_path, gzip_file)
-        if not check_file_exists(dir_path, gzip_file):
-            download_file(SERVICES_GZIP_URL, gzip_file_path)
-        csv_file_path = os.path.join(dir_path, csv_file)
-        extract_file(gzip_file_path, csv_file_path)
+    if not check_file_exists(dir_path, file["file_name"]):
+        logger.info(f"No file {file['file_name']}.* exists")
+        output_path = os.path.join(dir_path, file["download_output"])
+        download_file(file["url"], output_path)
+    if get_file_type(dir_path, file["file_name"]) == "gz":
+        extract_file(dir_path, file["download_output"])
+    if get_file_type(dir_path, file["file_name"]) != "parquet":
+        convert_to_parquet(dir_path, file["file_name"])
 
 
 def check_file_exists(dir_path: str, file: str) -> bool:
@@ -46,8 +46,16 @@ def check_file_exists(dir_path: str, file: str) -> bool:
         Boolean representing if the file exists or not: True if it exists,
             False otherwise.
     """
-    path = os.path.join(dir_path, file)
-    return os.path.isfile(path)
+    logger.info(f"Checking if {dir_path}/{file} exists")
+    try:
+        files_in_dir = os.listdir(dir_path)
+        file_regex = re.compile(r"^" + re.escape(file) + r".*")
+        matches = list(filter(file_regex.search, files_in_dir))
+        logger.debug(f"Matches: {matches}")
+        return len(matches) > 0
+    except Exception as e:
+        logger.error(f"Error finding file: {e}")
+        return False
 
 
 def download_file(url: str, output_path: str):
@@ -71,18 +79,65 @@ def download_file(url: str, output_path: str):
         raise
 
 
-def extract_file(input_path: str, output_path: str):
+def get_file_type(dir_path: str, file: str) -> str:
+    """Get the extension of a file.
+
+    Args:
+        dir_path: String representing the directory path of the file.
+        file: String representing the name of the file.
+
+    Returns:
+        The file extension as a sting.
+    """
+    files_in_dir = os.listdir(dir_path)
+    file_regex = re.compile(re.escape(file) + r".*")
+    matches = list(filter(file_regex.search, files_in_dir))
+    file_types = []
+    for match in matches:
+        split_file = match.split(".")
+        file_types.append(split_file[-1])
+    if "parquet" in file_types:
+        return "parquet"
+    elif "csv" in file_types:
+        return "csv"
+    else:
+        return "gz"
+
+
+def extract_file(dir_path: str, file: str):
     """Decompressing a file compressed with the gzip format.
 
     Args:
-        input_path: String representing the path of the compressed file.
-        output_path: String representing the path of the decompressed file.
+        dir_path: String representing the directory path of the compressed file.
+        file: String representing the file to be decompressed.
     """
-    logger.info(f"Decompressing {input_path}")
+    logger.info(f"Decompressing {file}")
+    input_path = os.path.join(dir_path, file)
+    output_path = os.path.join(dir_path, file[0:-3])  # remove ".gz" from name
     try:
         with gzip.open(input_path, "rb") as file_in:
             with open(output_path, "wb") as file_out:
                 shutil.copyfileobj(file_in, file_out)
     except Exception as e:
         logger.error(f"Decompression failed: {e}")
+        raise
+
+
+def convert_to_parquet(dir_path: str, file: str):
+    """Convert a CSV file to Parquet.
+
+    Args:
+        dir_path: String representing the directory path of the file.
+        file: String representing the file to de converted.
+    """
+    logger.info(f"Converting {file}.csv to Parquet")
+    input_file = file + ".csv"
+    input_path = os.path.join(dir_path, input_file)
+    output_file = file + ".parquet"
+    output_path = os.path.join(dir_path, output_file)
+    try:
+        df = pl.scan_csv(input_path)
+        df.sink_parquet(output_path)
+    except Exception as e:
+        logger.error(f"Converting CSV to Parquet failed: {e}")
         raise

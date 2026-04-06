@@ -1,4 +1,4 @@
-"""Loading a CSV into a DataFrame for later usage in transform."""
+"""Loading files into a DataFrame for later usage in transform."""
 
 import os
 
@@ -9,7 +9,32 @@ from src.logger import setup_logger
 logger = setup_logger(__name__, "extract.log")
 
 
-def load_to_dataframe(dir_path: str, file: str, use_cols: list[str]) -> pl.DataFrame:
+def load_parquet_to_dataframe(
+    dir_path: str, file: str, use_cols: list[str]
+) -> pl.DataFrame:
+    """Loads a CSV file into a DataFrame.
+
+    Args:
+        dir_path: String representing the directory path of the Parquet file.
+        file: String representing the Parquet file.
+        use_cols: List of the columns to be read.
+
+    Returns:
+        The DataFrame the CSV has been loaded into.
+    """
+    logger.info(f"Loading {file} into DataFrame")
+    parquet_path = os.path.join(dir_path, file)
+    try:
+        df = pl.read_parquet(parquet_path, columns=use_cols)
+        return df
+    except Exception as e:
+        logger.error(f"Failed to load {file} into DataFrame: {e}")
+        raise
+
+
+def load_csv_to_dataframe(
+    dir_path: str, file: str, use_cols: list[str]
+) -> pl.DataFrame:
     """Loads a CSV file into a DataFrame.
 
     Args:
