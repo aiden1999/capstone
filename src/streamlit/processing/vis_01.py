@@ -2,8 +2,8 @@
 
 import humanize
 
-from src.constants import OUTPUT_PATH
 from src.extract.load_to_dataframe import load_csv_to_dataframe
+from src.streamlit.processing.constants import OUTPUT_PATH
 
 
 def get_data_01() -> str:

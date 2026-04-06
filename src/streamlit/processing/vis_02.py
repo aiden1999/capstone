@@ -3,9 +3,8 @@
 import folium
 import polars as pl
 
-from src.constants import OUTPUT_PATH
 from src.extract.load_to_dataframe import load_csv_to_dataframe
-from src.streamlit.processing.constants import COLUMNS_02, MAP_CENTER, RED
+from src.streamlit.processing.constants import COLUMNS_02, MAP_CENTER, OUTPUT_PATH, RED
 
 
 def get_data_02() -> pl.DataFrame:

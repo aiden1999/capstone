@@ -1,9 +1,9 @@
 """Script to run the ETL pipeline."""
 
-from src.constants import OUTPUT_PATH
 from src.extract.extract import extract_data
 from src.load.load import load_data
 from src.logger import setup_logger
+from src.streamlit.processing.constants import OUTPUT_PATH
 from src.transform.transform import transform_data
 
 

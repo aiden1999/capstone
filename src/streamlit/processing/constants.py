@@ -1,5 +1,6 @@
 """Constants for use with the Streamlit app."""
 
+OUTPUT_PATH = "data/output"
 RED = "#ad1d25"
 MAP_CENTER = [52, 6]
 COLUMNS_02 = [

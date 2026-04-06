@@ -5,7 +5,8 @@ Called in run_etl.
 
 import polars as pl
 
-from src.constants import (
+from src.extract.check_data_sources import check_data_sources
+from src.extract.constants import (
     DISRUPTIONS_FILE,
     DISRUPTIONS_USECOLS,
     RAW_DATA_FILE_PATH,
@@ -14,7 +15,6 @@ from src.constants import (
     STATIONS_FILE,
     STATIONS_USECOLS,
 )
-from src.extract.check_data_sources import check_data_sources
 from src.extract.load_to_dataframe import load_parquet_to_dataframe
 from src.logger import setup_logger
 

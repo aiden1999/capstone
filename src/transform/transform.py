@@ -5,13 +5,13 @@ Called in run_etl.
 
 import polars as pl
 
-from src.constants import (
+from src.logger import setup_logger
+from src.transform.constants import (
     # DPCC_COLUMNS,
     GENERAL_COLUMNS,
     INTERNATIONAL_COUNTRIES,
     # STATIONS_COLUMNS,
 )
-from src.logger import setup_logger
 from src.transform.general.transform_general import transform_general
 from src.transform.utils import (
     keep_columns,

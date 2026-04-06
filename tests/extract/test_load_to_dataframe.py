@@ -1,7 +1,7 @@
 import polars as pl
 import pytest
 
-from src.constants import STATIONS_USECOLS
+from src.extract.constants import STATIONS_USECOLS
 from src.extract.load_to_dataframe import load_csv_to_dataframe
 
 
