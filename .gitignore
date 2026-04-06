@@ -1,6 +1,9 @@
-# files over 100MB
+# files too big/not needed etc
+data/raw/disruptions-2024.csv
 data/raw/services-2024.csv
 data/raw/services-2024.csv.gz
+data/raw/services-2024.parquet
+data/raw/stations-2023-09.csv
 
 # lock files
 *~lock*
