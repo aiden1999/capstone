@@ -26,10 +26,11 @@ def check_data_sources(dir_path: str, file: dict):
     """
     logger.info("Checking data sources...")
     if not check_file_exists(dir_path, file["file_name"]):
-        output_path = os.path.join(dir_path, file["download_file"])
+        logger.info(f"No file {file['file_name']}.* exists")
+        output_path = os.path.join(dir_path, file["download_output"])
         download_file(file["url"], output_path)
     if get_file_type(dir_path, file["file_name"]) == "gz":
-        extract_file(dir_path, file["download_file"])
+        extract_file(dir_path, file["download_output"])
     if get_file_type(dir_path, file["file_name"]) != "parquet":
         convert_to_parquet(dir_path, file["file_name"])
 
@@ -48,8 +49,9 @@ def check_file_exists(dir_path: str, file: str) -> bool:
     logger.info(f"Checking if {dir_path}/{file} exists")
     try:
         files_in_dir = os.listdir(dir_path)
-        file_regex = re.compile(re.escape(file) + r".*")
+        file_regex = re.compile(r"^" + re.escape(file) + r".*")
         matches = list(filter(file_regex.search, files_in_dir))
+        logger.debug(f"Matches: {matches}")
         return len(matches) > 0
     except Exception as e:
         logger.error(f"Error finding file: {e}")
