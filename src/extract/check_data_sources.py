@@ -5,10 +5,11 @@ Checks that the needed parquet files exists, if not orchestrate their download a
 
 import gzip
 import os
-import shutil
 import re
-import requests
+import shutil
+
 import polars as pl
+import requests
 
 from src.logger import setup_logger
 
