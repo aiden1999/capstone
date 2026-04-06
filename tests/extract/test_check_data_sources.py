@@ -43,17 +43,13 @@ def test_extract_file_works():
     dir = "data/test"
     input_file = "sample-1.gz"
     output_file = "sample-1"
-    input_path = os.path.join(dir, input_file)
     output_path = os.path.join(dir, output_file)
-    extract_file(input_path, output_path)
+    extract_file(dir, input_file)
     assert os.path.exists(output_path)
 
 
 def test_extract_file_raises_exception():
     dir = "data/test"
     input_file = "sample-2.gz"
-    output_file = "sample-2"
-    input_path = os.path.join(dir, input_file)
-    output_path = os.path.join(dir, output_file)
     with pytest.raises(Exception):
-        extract_file(input_path, output_path)
+        extract_file(dir, input_file)
