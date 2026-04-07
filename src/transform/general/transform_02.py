@@ -29,9 +29,7 @@ def transform_02(df: pl.DataFrame) -> pl.DataFrame:
     df = merge_rows(df)
     group_by_cols = ["Service:Type", "Service:Company", "start_station", "end_station"]
     df = count_services(df, group_by_cols)
-    df = df.drop("Service:RDT-ID")
-    df = df.unique()
-    df = df.drop_nulls()
+    df = df.drop("Service:RDT-ID").unique().drop_nulls()
     return df
 
 
@@ -49,11 +47,11 @@ def keep_start_and_end_stations(df: pl.DataFrame) -> pl.DataFrame:
     """
     logger.info("Removing intermediate stations")
     try:
-        start_end_df = df.filter(
+        df = df.filter(
             pl.col("Stop:Arrival time").is_null()
-            | pl.col("Stop:Departure time").is_null()
+            | pl.col("Stop:Departure time").is_null(),
         )
-        return start_end_df
+        return df
     except Exception as e:
         logger.error(f"Remove intermediate stations failed: {e}")
         raise
@@ -84,10 +82,9 @@ def create_columns(
     logger.info(f"Creating new columns: {new_cols}")
     try:
         new_df = df.clone()
-        mask = new_df[cond_col].is_not_null()
         new_df = new_df.with_columns(
             [
-                pl.when(mask)
+                pl.when(pl.col(cond_col).is_not_null())
                 .then(pl.col(old_cols[i]))
                 .otherwise(None)
                 .alias(new_cols[i])
@@ -112,8 +109,8 @@ def merge_rows(df: pl.DataFrame) -> pl.DataFrame:
     """
     logger.info("Merging rows")
     try:
-        merged_df = df.group_by("Service:RDT-ID").first(ignore_nulls=True)
-        return merged_df
+        df = df.group_by("Service:RDT-ID").first(ignore_nulls=True)
+        return df
     except Exception as e:
         logger.error(f"Merge rows failed: {e}")
         raise

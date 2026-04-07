@@ -19,18 +19,18 @@ def transform_03(df: pl.DataFrame) -> pl.DataFrame:
         Transformed DataFrame.
     """
     logger.info("Transforming for 03")
-    df_needed_cols = keep_columns(df, VIS_03_COLUMNS)
-    df_imploded_rows = implode_rows(df_needed_cols, "Service:RDT-ID")
-    df_no_dups = df_imploded_rows.unique(subset="Stop:Station code")
-    df_no_dups = df_no_dups.with_columns(
+    df = keep_columns(df, VIS_03_COLUMNS)
+    df = implode_rows(df, "Service:RDT-ID")
+    df = df.unique(subset="Stop:Station code")
+    df = df.with_columns(
         pl.col("Stop:Station code").list.len().alias("Total stops")
     ).sort(
         "Service:RDT-ID"
     )  # sorting only so that tests pass
-    df_no_dups = df_no_dups.with_columns(
+    df = df.with_columns(
         pl.col("Stop:Station code", "Stop:Station name").list.join(", "),
         pl.col("geo_lat", "geo_lng")
         .list.eval(pl.element().cast(pl.String))
         .list.join(", "),
     )
-    return df_no_dups
+    return df
