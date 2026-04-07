@@ -9,9 +9,10 @@ data/raw/stations-2023-09.csv
 *~lock*
 
 # test files
-data/test/sample-1.gz
-data/test/sample-1
+data/test/sample-2.txt
+data/test/sample-6.parquet
 data/test/01.csv
+data/test/sample-5
 
 # output files
 data/output/*.csv
