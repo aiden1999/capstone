@@ -21,6 +21,5 @@ def transform_05(df: pl.DataFrame) -> pl.DataFrame:
     df = df.unique()  # each service is counted once
     group_by_cols = ["Service:Type", "Service:Company"]
     df = count_services(df, group_by_cols)
-    df = df.drop("Service:RDT-ID")
-    df = df.unique()
+    df = df.drop("Service:RDT-ID").unique()
     return df

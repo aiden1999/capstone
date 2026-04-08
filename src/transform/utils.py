@@ -23,8 +23,8 @@ def explode_row(df: pl.DataFrame, column: str) -> pl.DataFrame:
     logger.info(f"Exploding dataframe on column {column}")
     try:
         df = df.with_columns(pl.col(column).str.split(","))
-        df_exploded = df.explode(column)
-        return df_exploded
+        df = df.explode(column)
+        return df
     except Exception as e:
         logger.error(f"Explode failed: {e}")
         raise
@@ -46,8 +46,8 @@ def merge_dataframes(
     """
     logger.info("Merging...")
     try:
-        merged_df = df_1.join(df_2, left_on=col_1, right_on=col_2)
-        return merged_df
+        df = df_1.join(df_2, left_on=col_1, right_on=col_2)
+        return df
     except Exception as e:
         logger.error(f"Merge failed: {e}")
         raise
@@ -64,8 +64,8 @@ def keep_columns(df: pl.DataFrame, keep_columns: list[str]) -> pl.DataFrame:
         Transformed DataFrame.
     """
     logger.info("Dropping columns")
-    new_df = df.select([col for col in keep_columns if col in df.columns])
-    return new_df
+    df = df.select(keep_columns)
+    return df
 
 
 def count_services(df: pl.DataFrame, group_by_cols: list[str]) -> pl.DataFrame:
@@ -77,10 +77,8 @@ def count_services(df: pl.DataFrame, group_by_cols: list[str]) -> pl.DataFrame:
     """
     logger.info("Counting services")
     try:
-        transformed_df = df.with_columns(
-            pl.len().over(group_by_cols).alias("route_count")
-        )
-        return transformed_df
+        df = df.with_columns(pl.len().over(group_by_cols).alias("route_count"))
+        return df
     except Exception as e:
         logger.error(f"Count services failed: {e}")
         raise
@@ -98,8 +96,8 @@ def implode_rows(df: pl.DataFrame, index_col: str) -> pl.DataFrame:
     """
     logger.info("Imploding rows")
     try:
-        new_df = df.group_by(index_col, maintain_order=True).agg(pl.all())
-        return new_df
+        df = df.group_by(index_col, maintain_order=True).agg(pl.all())
+        return df
     except Exception as e:
         logger.error(f"Implode rows failed: {e}")
         raise

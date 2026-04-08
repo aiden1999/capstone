@@ -2,5 +2,5 @@
 omit = 
     */__init__.py
     tests/*
-    src/constants.py
     src/logger.py
+    */constants.py
