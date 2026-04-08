@@ -78,8 +78,9 @@ def remove_international_data(df: pl.DataFrame) -> pl.DataFrame:
     """
     logger.info("Removing international data")
     try:
-        country_mask = df["country"].is_in(INTERNATIONAL_COUNTRIES)
-        international_df = df.filter(country_mask)
+        # country_mask = df["country"].is_in(INTERNATIONAL_COUNTRIES)
+        # international_df = df.filter(country_mask)
+        international_df = df.filter(df["country"].is_in(INTERNATIONAL_COUNTRIES))
         international_ids = international_df[:, 0].unique().to_list()
         domestic_df = df.filter(~pl.first().is_in(international_ids))
         return domestic_df
