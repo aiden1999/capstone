@@ -9,8 +9,8 @@ from src.extract.load_to_dataframe import (
 
 
 def test_load_csv_to_dataframe_returns_df():
-    dir_path = "data/raw"
-    file = "stations-2023-09.csv"
+    dir_path = "data/test"
+    file = "sample-7.csv"
     use_cols = STATIONS_USECOLS
     df = load_csv_to_dataframe(dir_path, file, use_cols)
     assert isinstance(df, pl.DataFrame)
