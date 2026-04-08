@@ -13,6 +13,8 @@ data/test/sample-2.txt
 data/test/sample-6.parquet
 data/test/01.csv
 data/test/sample-5
+data/test/sample-1
+data/test/sample-1.gz
 
 # output files
 data/output/*.csv
