@@ -82,3 +82,13 @@ VIS_03_COLUMNS = [
     "geo_lat",
     "geo_lng",
 ]
+VIS_04_COLUMNS = [
+    "Service:RDT-ID",
+    "Stop:Station name",
+    "geo_lat",
+    "geo_lng",
+    "Stop:Arrival time",
+    "Stop:Departure time",
+    "Stop:Arrival delay",
+    "Stop:Departure delay",
+]
