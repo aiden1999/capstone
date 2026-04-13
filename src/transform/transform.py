@@ -76,13 +76,20 @@ def remove_international_data(df: pl.DataFrame) -> pl.DataFrame:
     Returns:
         DataFrame without international services.
     """
-    # PERF: if run too many times, this function will grind everyting to a halt. literally.
-    # WARN: you will run out of ram. possibly.
     logger.info("Removing international data")
     try:
-        international_df = df.filter(df["country"].is_in(INTERNATIONAL_COUNTRIES))
-        international_ids = international_df[:, 0].unique().to_list()
-        domestic_df = df.filter(~pl.first().is_in(international_ids))
+        domestic_df = (
+            df.lazy()
+            .join(
+                df.lazy()
+                .filter(pl.col("country").is_in(INTERNATIONAL_COUNTRIES))
+                .select(pl.first())
+                .unique(),
+                on=df.columns[0],
+                how="anti",
+            )
+            .collect(engine="streaming")
+        )
         return domestic_df
     except Exception as e:
         logger.error(f"Removing international data failed: {e}")
