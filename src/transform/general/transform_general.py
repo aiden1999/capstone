@@ -26,4 +26,4 @@ def transform_general(df: pl.DataFrame) -> list[pl.DataFrame]:
     df_03 = transform_03(df)
     df_04 = transform_04(df)
     df_05 = transform_05(df)
-    return [df_01, df_02, df_03, df_05]
+    return [df_01, df_02, df_03, df_04, df_05]

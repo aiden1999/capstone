@@ -12,7 +12,7 @@ def get_data_05() -> pl.DataFrame:
     Returns:
         DataFrame with the needed data.
     """
-    df_05 = load_csv_to_dataframe(OUTPUT_PATH, "04.csv", COLUMNS_05)
+    df_05 = load_csv_to_dataframe(OUTPUT_PATH, "05.csv", COLUMNS_05)
     return df_05
 
 
