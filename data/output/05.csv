@@ -1,0 +1,45 @@
+Service:Type,Service:Company,route_count
+Eurostar,NS Int,6
+Extra trein,NS,1128
+Extra trein,Blauwnet,2
+Snelbus ipv trein,Blauwnet,1486
+Snelbus ipv trein,Keolis,1
+Nachttrein,Arriva,190
+Intercity,NS Int,12
+Stoptrein,NMBS,4
+Stoptrein,Blauwnet,60920
+Bus,R-net,156
+Stoptrein,Arriva,367068
+Stoptrein,R-net,41801
+Stopbus ipv trein,VIAS,1
+Sneltrein,Blauwnet,14879
+Belbus,Arriva,9
+Stopbus ipv trein,NS,83892
+Sprinter,NS,777803
+Stopbus ipv trein,Arriva,17074
+Sprinter,R-net,40704
+Snelbus ipv trein,Arriva,8373
+Stopbus ipv trein,Blauwnet,5167
+Int. Trein,NS Int,9
+Extra trein,Arriva,1524
+Stoptrein,RRReis,4285
+Sprinter,Blauwnet,56664
+Metro ipv trein,NS,24313
+Speciale Trein,NS,5043
+Intercity direct,NS Int,3
+Stopbus ipv trein,Qbuzz,338
+Stoptrein,VIAS,3
+Sneltrein,Arriva,37680
+Intercity,NS,488451
+Taxibus ipv trein,Arriva,1232
+Intercity,Blauwnet,7393
+Stoomtrein,ZLSM,2
+Stopbus ipv trein,R-net,1204
+Stoptrein,Breng,14091
+Snelbus ipv trein,NS,70062
+ICE International,NS Int,6
+Taxibus ipv trein,NS,3710
+Sprinter,RRReis,35521
+Intercity direct,NS,42066
+Stopbus ipv trein,Eurobahn,1
+Stopbus ipv trein,RRReis,3618
