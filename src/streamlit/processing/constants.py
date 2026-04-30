@@ -25,6 +25,13 @@ COLUMN_CONFIG_02 = {
     "end_lng": None,
     "route_count": "Route Count",
 }
+COLUMNS_03 = ["Stop:Station name", "geo_lat", "geo_lng", "Total stops"]
+COLUMNS_CONFIG_03 = {
+    "Stop:Station name": "Stations",
+    "geo_lat": None,
+    "geo_lng": None,
+    "Total stops": "Total stops",
+}
 COLUMNS_05 = ["Service:Type", "Service:Company", "route_count"]
 COLUMN_CONFIG_05_OPERATORS = {
     "Service:Company": "Operator",

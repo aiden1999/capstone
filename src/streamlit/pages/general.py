@@ -11,10 +11,12 @@ from src.streamlit.processing.constants import (
     COLUMN_CONFIG_02,
     COLUMN_CONFIG_05_OPERATORS,
     COLUMN_CONFIG_05_SERVICES,
+    COLUMNS_CONFIG_03,
     RED,
 )
 from src.streamlit.processing.vis_01 import get_data_01
 from src.streamlit.processing.vis_02 import get_data_02, get_map
+from src.streamlit.processing.vis_03 import get_data_03
 from src.streamlit.processing.vis_05 import (
     get_data_05,
     get_data_05_operators_grouped,
@@ -54,6 +56,17 @@ with col_least:
     st.markdown("#### Least frequent")
     map_least = get_map(df_02_bottom)
     st_folium(map_least)
+
+st.divider()
+
+st.subheader("Routes with the most and least stops")
+
+df_03 = get_data_03()
+st.dataframe(data=df_03, hide_index=True, column_config=COLUMNS_CONFIG_03)
+
+num_routes_03 = st.slider(
+    "Choose a number to display", min_value=1, max_value=10, value=5, step=1
+)
 
 st.divider()
 

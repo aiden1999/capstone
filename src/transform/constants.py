@@ -23,6 +23,7 @@ GENERAL_COLUMNS = [
     "Stop:Departure delay",
     "Service:Type",
     "Service:Company",
+    "Service:Partly cancelled",
 ]
 STATIONS_COLUMNS = [
     "code",
@@ -77,6 +78,7 @@ VIS_02_COLUMNS = [
 ]
 VIS_03_COLUMNS = [
     "Service:RDT-ID",
+    "Service:Partly cancelled",
     "Stop:Station code",
     "Stop:Station name",
     "geo_lat",
