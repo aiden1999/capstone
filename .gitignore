@@ -16,8 +16,10 @@ data/test/sample-5
 data/test/sample-1
 data/test/sample-1.gz
 
-# output files
-data/output/*.csv
+# unused data output
+# TODO: remove from here when they are used in streamlit app
+data/output/03.csv
+data/output/04.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
