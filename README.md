@@ -3,6 +3,8 @@
 _ETL pipeline and Streamlit app exploring Dutch domestic rail services for the
 year of 2024._
 
+**View the deployment on [Streamlit](https://aiden1999-capstone.streamlit.io)!**
+
 <!--toc:start-->
 
 - [Capstone Project](#capstone-project)
